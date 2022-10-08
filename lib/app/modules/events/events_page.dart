@@ -9,7 +9,8 @@ class EventsPage extends GetView<EventsController> {
   const EventsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    controller.loadEvents();
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -29,14 +30,16 @@ class EventsPage extends GetView<EventsController> {
               const SizedBox(
                 height: 30,
               ),
-              const HighlightsEvents(),
+              Obx(() {
+                return HighlightsEvents(events: controller.events);
+              }),
               const SizedBox(
                 height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
-                  children: const[
+                  children: const [
                     Text(
                       'Perto de Você',
                       style: TextStyle(

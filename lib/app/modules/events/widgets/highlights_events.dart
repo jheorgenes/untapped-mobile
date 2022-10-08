@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untapped/app/core/models/event_model.dart';
 
 class HighlightsEvents extends StatelessWidget {
-  const HighlightsEvents({Key? key}) : super(key: key);
+  final List _events;
+
+  const HighlightsEvents({Key? key, required List events})
+      : _events = events,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +35,9 @@ class HighlightsEvents extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  ...List.generate(
-                    10,
-                    (index) => GestureDetector(
+                  ..._events.map((event) {
+                    final eventModel = event as EventModel;
+                    return GestureDetector(
                       onTap: () {
                         Get.toNamed('/events/detail', arguments: {'id': 1});
                       },
@@ -50,18 +55,18 @@ class HighlightsEvents extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Text(
-                            'Cabaré - Ao vivo MA',
-                            style: TextStyle(
+                          Text(
+                            eventModel.title,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'Poppins',
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const Text(
-                            'Novembro 2021',
-                            style: TextStyle(
+                          Text(
+                            eventModel.dateEntry,
+                            style: const TextStyle(
                               color: Color(0XFFAFAFAF),
                               fontFamily: 'Poppins',
                               fontSize: 16,
@@ -70,8 +75,8 @@ class HighlightsEvents extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  ).toList(),
+                    );
+                  })
                 ],
               ),
             ),
