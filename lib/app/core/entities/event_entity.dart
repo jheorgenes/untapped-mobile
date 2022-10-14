@@ -6,6 +6,7 @@ class EventEntity {
   String subTitle;
   String dateEntry;
   String deadline;
+  String description;
   String? photos;
   String? media;
   String? frontCover;
@@ -18,6 +19,7 @@ class EventEntity {
     required this.subTitle,
     required this.dateEntry,
     required this.deadline,
+    required this.description,
     this.photos,
     this.media,
     this.frontCover,

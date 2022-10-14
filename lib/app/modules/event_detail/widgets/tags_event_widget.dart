@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TagsEventWidget extends StatelessWidget {
-  const TagsEventWidget({Key? key}) : super(key: key);
+  String dateEntry;
+  String deadline;
+
+  TagsEventWidget({
+    super.key,
+    required this.dateEntry,
+    required this.deadline,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var dateEntryDate = DateFormat('dd/MM/yyyy HH:mm').parse(dateEntry);
+    var deadlineDate = DateFormat('dd/MM/yyyy HH:mm').parse(deadline);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20.0,
@@ -58,10 +69,10 @@ class TagsEventWidget extends StatelessWidget {
                 Radius.circular(20),
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                '02h 43m',
-                style: TextStyle(
+                deadlineDate.difference(dateEntryDate).inHours.toString(),
+                style: const TextStyle(
                   color: Color(0XFFB2B5BB),
                 ),
               ),

@@ -11,6 +11,8 @@ class EventModel extends EventEntity {
   @override
   String subTitle;
   @override
+  String description;
+  @override
   String dateEntry;
   @override
   String deadline;
@@ -36,9 +38,11 @@ class EventModel extends EventEntity {
     this.media,
     required this.addressModel,
     required this.capacity,
+    required this.description,
   }) : super(
           id: id,
           title: title,
+          description: description,
           subTitle: subTitle,
           dateEntry: dateEntry,
           deadline: deadline,
@@ -57,6 +61,7 @@ class EventModel extends EventEntity {
       'dateEntry': dateEntry,
       'deadline': deadline,
       'photos': photos,
+      'description': description,
       'media': media,
       'frontCover': frontCover,
       'addressEntity': addressModel.toMap(),
@@ -72,6 +77,7 @@ class EventModel extends EventEntity {
       dateEntry: map['dateEntry'] ?? '',
       deadline: map['deadline'] ?? '',
       photos: map['photos'],
+      description: map['description'],
       media: map['media'],
       frontCover: map['frontCover'],
       addressModel: AddressModel.fromMap(map['address']),

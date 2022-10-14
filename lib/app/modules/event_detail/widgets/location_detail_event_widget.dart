@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:untapped/app/core/models/address_model.dart';
 
 class LocationDetailEventWidget extends StatelessWidget {
-  const LocationDetailEventWidget({Key? key}) : super(key: key);
+  AddressModel addressModel;
+  String dateEntry;
+
+  LocationDetailEventWidget({
+    super.key,
+    required this.addressModel,
+    required this.dateEntry,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var inputFormat = DateFormat('dd/MM/yyyy HH:mm').parse(dateEntry);
+    var hour = DateFormat("hh:mm", 'pt_BR').format(inputFormat);
+    var date = DateFormat("dd/MM/yyyy", 'pt_BR').format(inputFormat);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
@@ -22,12 +35,12 @@ class LocationDetailEventWidget extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               SizedBox(
                 width: 150,
                 child: Text(
-                  'Parque das Araucárias Goiânia - Goiás',
-                  style: TextStyle(
+                  '${addressModel.title ?? ''} ${addressModel.city} - ${addressModel.state}',
+                  style: const TextStyle(
                     color: Color(0XFFB2B5BB),
                     overflow: TextOverflow.fade,
                   ),
@@ -40,26 +53,26 @@ class LocationDetailEventWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
-                  FaIcon(
+                children: [
+                  const FaIcon(
                     FontAwesomeIcons.calendar,
                     color: Color(0XFFB2B5BB),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text(
+                  const Text(
                     'Data:',
                     style: TextStyle(
                       color: Color(0XFFB2B5BB),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '14/05/2121',
-                    style: TextStyle(
+                    date,
+                    style: const TextStyle(
                       color: Color(0XFFB2B5BB),
                     ),
                   ),
@@ -70,26 +83,26 @@ class LocationDetailEventWidget extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  FaIcon(
+                children: [
+                  const FaIcon(
                     FontAwesomeIcons.clock,
                     color: Color(0XFFB2B5BB),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
-                  Text(
+                  const Text(
                     'Horário:',
                     style: TextStyle(
                       color: Color(0XFFB2B5BB),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '19:00',
-                    style: TextStyle(
+                    hour,
+                    style: const TextStyle(
                       color: Color(0XFFB2B5BB),
                     ),
                   ),

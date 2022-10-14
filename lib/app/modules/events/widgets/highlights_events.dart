@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untapped/app/core/models/event_model.dart';
+import 'package:intl/intl.dart';
+
+import '../../../core/models/event_model.dart';
 
 class HighlightsEvents extends StatelessWidget {
   final List _events;
@@ -37,9 +39,13 @@ class HighlightsEvents extends StatelessWidget {
                 children: [
                   ..._events.map((event) {
                     final eventModel = event as EventModel;
+                    var inputFormat =
+                        DateFormat('dd/MM/yyyy HH:mm').parse(event.dateEntry);
+                    var date =
+                        DateFormat("MMMM y", 'pt_BR').format(inputFormat);
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed('/events/detail', arguments: {'id': 1});
+                        Get.toNamed('/events/detail', arguments: eventModel);
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +71,7 @@ class HighlightsEvents extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            eventModel.dateEntry,
+                            date,
                             style: const TextStyle(
                               color: Color(0XFFAFAFAF),
                               fontFamily: 'Poppins',
@@ -76,7 +82,7 @@ class HighlightsEvents extends StatelessWidget {
                         ],
                       ),
                     );
-                  })
+                  }),
                 ],
               ),
             ),

@@ -10,6 +10,8 @@ class AddressModel extends AddressEntity {
   @override
   String district;
   @override
+  String? title;
+  @override
   String addressComplement;
   @override
   String? addressNumber;
@@ -17,6 +19,8 @@ class AddressModel extends AddressEntity {
   String? cep;
   @override
   String city;
+  @override
+  String state;
   @override
   String country;
   @override
@@ -33,6 +37,8 @@ class AddressModel extends AddressEntity {
     required this.cep,
     required this.city,
     required this.country,
+    this.title,
+    required this.state,
     this.latitude,
     this.longitude,
   }) : super(
@@ -41,6 +47,8 @@ class AddressModel extends AddressEntity {
           district: district,
           addressComplement: addressComplement,
           city: city,
+          title: title,
+          state: state,
           country: country,
           latitude: latitude,
           longitude: longitude,
@@ -54,6 +62,8 @@ class AddressModel extends AddressEntity {
       'addressComplement': addressComplement,
       'addressNumber': addressNumber,
       'cep': cep,
+      'title': title,
+      'state': state,
       'city': city,
       'country': country,
       'latitude': latitude,
@@ -69,6 +79,8 @@ class AddressModel extends AddressEntity {
       addressComplement: map['addressComplement'] ?? '',
       addressNumber: map['addressNumber'],
       cep: map['cep'],
+      title: map['title'],
+      state: map['state'],
       city: map['city'] ?? '',
       country: map['country'] ?? '',
       latitude: map['latitude'],

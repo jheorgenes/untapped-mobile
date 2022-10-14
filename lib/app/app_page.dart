@@ -1,3 +1,4 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:untapped/app/routes/app_routes.dart';
@@ -11,6 +12,12 @@ class AppPage extends GetView<AppController> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
       title: 'Contrate online',
       theme: AppThemeUi.theme, //Tema importado manualmente
