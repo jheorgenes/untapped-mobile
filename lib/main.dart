@@ -5,7 +5,5 @@ import 'app/app_page.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    const AppPage(),
-  );
+  runApp(const AppPage());
 }

@@ -21,7 +21,7 @@ class AppPage extends GetView<AppController> {
       debugShowCheckedModeBanner: false,
       title: 'Contrate online',
       theme: AppThemeUi.theme, //Tema importado manualmente
-      initialRoute: '/home',
+      initialRoute: '/',
       getPages: AppRoutes.routes,
       initialBinding: ApplicationBinding(),
     );

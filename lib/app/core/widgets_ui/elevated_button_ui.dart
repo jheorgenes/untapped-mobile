@@ -5,6 +5,7 @@ class ElevatedButtonUi extends StatelessWidget {
   final Color? backgroundColor;
   final Color? overlayColor;
   final double? borderRadius;
+  final BorderSide? borderSide;
 
   final Widget child;
 
@@ -15,6 +16,7 @@ class ElevatedButtonUi extends StatelessWidget {
     this.backgroundColor,
     this.overlayColor,
     this.borderRadius,
+    this.borderSide,
   });
 
   @override
@@ -31,6 +33,7 @@ class ElevatedButtonUi extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
+            side: borderSide ?? BorderSide.none,
             borderRadius: BorderRadius.circular(borderRadius ?? 40),
           ),
         ),

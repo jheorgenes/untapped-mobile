@@ -5,12 +5,14 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showIcon;
   final Color color;
+  final Color? backIconColor;
 
   const AppBarNavigator({
     super.key,
     required this.title,
     required this.showIcon,
     required this.color,
+    this.backIconColor,
   });
 
   @override
@@ -41,7 +43,10 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               shape: const CircleBorder(),
             ),
-            child: const FaIcon(FontAwesomeIcons.chevronLeft),
+            child: FaIcon(
+              FontAwesomeIcons.chevronLeft,
+              color: backIconColor,
+            ),
           ),
           const Spacer(),
           Text(
