@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untapped/app/modules/splash/splash_controller.dart';
@@ -9,9 +7,8 @@ class SplashPage extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      controller.checkLogged();
-    });
+    controller.checkLogged();
+
     return Scaffold(
       backgroundColor: const Color(0XFF1B1E25),
       body: Column(

@@ -18,7 +18,7 @@ class AuthRoutes {
     GetPage(
       name: '/auth/login', //Nome da Rota
       binding: LoginBindings(), //Efetua o binding do Controller
-      page: () => const LoginPage(), //Constrói a página
+      page: () => LoginPage(), //Constrói a página
     ),
     GetPage(
       name: '/auth/register', //Nome da Rota

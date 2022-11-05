@@ -17,7 +17,7 @@ class EventsRepository implements IEventsRepositoty {
 
   @override
   Future<List<EventModel>> list() async {
-    var response = await _restClient.get('/events');
+    var response = await _restClient.get('/api/events');
     List<EventModel> result = [];
     response.body.forEach((item) {
       result.add(EventModel.fromMap(item));

@@ -4,11 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class InputFormUi extends StatefulWidget {
   final String label;
   final String type;
+  final TextEditingController? controller;
 
   const InputFormUi({
     super.key,
     required this.label,
     required this.type,
+    this.controller,
   });
 
   @override
@@ -19,11 +21,20 @@ class _InputFormUiState extends State<InputFormUi> {
   bool _obscure = true;
 
   @override
+  void dispose() {
+    if (widget.controller != null) {
+      widget.controller!.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.centerRight,
       children: [
         TextFormField(
+          controller: widget.controller,
           obscureText: _obscure && widget.type == 'password',
           decoration: InputDecoration(
             labelText: widget.label,

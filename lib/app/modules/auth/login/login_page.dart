@@ -6,10 +6,14 @@ import 'package:untapped/app/core/widgets_ui/input_form_ui.dart';
 import './login_controller.dart';
 
 class LoginPage extends GetView<LoginController> {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
+  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _userName.text = 'jheorgenes@gmail.com';
+    _password.text = 'admin234';
     return Scaffold(
       appBar: const AppBarNavigator(
         title: '',
@@ -46,26 +50,35 @@ class LoginPage extends GetView<LoginController> {
               const SizedBox(
                 height: 20,
               ),
-              const InputFormUi(
+              InputFormUi(
                 type: 'text',
-                label: 'Nome completo',
+                label: 'Email',
+                controller: _userName,
               ),
               const SizedBox(
                 height: 10,
               ),
-              const InputFormUi(
+              InputFormUi(
                 type: 'password',
                 label: 'Senha',
+                controller: _password,
               ),
               const SizedBox(
                 height: 40,
               ),
               ElevatedButtonUi(
-                callback: () {},
+                callback: () {
+                  controller.authenticate({
+                    'username': _userName.text,
+                    'password': _password.text,
+                  });
+                },
                 child: SizedBox(
                   width: context.width,
                   height: 57,
-                  child: const Center(child: Text('Login')),
+                  child: const Center(
+                    child: Text('Login'),
+                  ),
                 ),
               ),
             ],
