@@ -30,14 +30,14 @@ class AuthService extends GetxService {
       }
     });
 
-    _isLogged(getUserId() != null);
+    _isLogged(await getUserId() != null);
 
     return this;
   }
 
   void logout() => _getStorage.write(Constants.USER_KEY, null);
 
-  getUserId() async {
+  Future<int?> getUserId() async {
     user(await _authRepository.me());
 
     if (user['id'] == null) {

@@ -51,7 +51,7 @@ class LoginPage extends GetView<LoginController> {
                 height: 20,
               ),
               InputFormUi(
-                type: 'text',
+                textColor: Colors.black,
                 label: 'Email',
                 controller: _userName,
               ),
@@ -59,6 +59,7 @@ class LoginPage extends GetView<LoginController> {
                 height: 10,
               ),
               InputFormUi(
+                textColor: Colors.black,
                 type: 'password',
                 label: 'Senha',
                 controller: _password,

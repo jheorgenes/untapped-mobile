@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
+import 'package:untapped/app/modules/create_event/widgets/ticket_widget.dart';
+
+class AddTicketWidget extends StatefulWidget {
+  const AddTicketWidget({Key? key}) : super(key: key);
+
+  @override
+  State<AddTicketWidget> createState() => _AddTicketWidgetState();
+}
+
+class _AddTicketWidgetState extends State<AddTicketWidget> {
+  final List<Map<String, dynamic>> _tickets = [];
+
+  _incrementTicket() {
+    setState(() {
+      _tickets.add({"data": {}});
+    });
+  }
+
+  _removeItem(index) {
+    setState(() {
+      _tickets.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButtonUi(
+            backgroundColor: const Color(0XFF636882),
+            callback: _incrementTicket,
+            child: IntrinsicWidth(
+              child: Padding(
+                padding: const EdgeInsets.all(11.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    FaIcon(
+                      FontAwesomeIcons.plus,
+                      size: 14,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Adicionar ticket'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ..._tickets.asMap().entries.map((entry) => TicketWidget(
+                removeItem: () {
+                  _removeItem(entry.key);
+                },
+              ))
+        ],
+      ),
+    );
+  }
+}

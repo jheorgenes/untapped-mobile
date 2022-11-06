@@ -3,7 +3,7 @@ import 'package:untapped/app/modules/splash/splash_bindings.dart';
 import 'package:untapped/app/modules/splash/splash_page.dart';
 import 'package:untapped/app/routes/auth_routes.dart';
 import 'package:untapped/app/routes/checkout_routes.dart';
-import 'package:untapped/app/routes/event_detail_routes.dart';
+import 'package:untapped/app/routes/event_routes.dart';
 import 'package:untapped/app/routes/home_routes.dart';
 
 class AppRoutes {
@@ -23,7 +23,7 @@ class AppRoutes {
     ...AuthRoutes.routes,
     ...HomeRoutes
         .routes, //Ao acessa com '/', chama esse metodo HomeRouters.routers
-    ...EventDetailRoutes.routes,
+    ...EventRoutes.routes,
     ...CheckoutRoutes.routes,
   ];
 }

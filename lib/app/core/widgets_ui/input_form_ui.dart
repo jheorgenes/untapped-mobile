@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class InputFormUi extends StatefulWidget {
   final String label;
-  final String type;
+  final String? type;
+  final Color? textColor;
+  final String? Function(String? va)? validator;
+  final Color? baseColor;
   final TextEditingController? controller;
 
   const InputFormUi({
     super.key,
     required this.label,
-    required this.type,
+    this.type = 'text',
+    this.textColor = Colors.white,
+    this.validator,
+    this.baseColor,
     this.controller,
   });
 
@@ -28,21 +35,94 @@ class _InputFormUiState extends State<InputFormUi> {
     super.dispose();
   }
 
+  _onTap() async {
+    if (widget.type == 'date') {
+      DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2100),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Theme.of(context)
+                    .backgroundColor, // header background color
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).backgroundColor,
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+      );
+
+      if (pickedDate != null) {
+        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+
+        if (widget.controller != null) {
+          widget.controller!.text = formattedDate;
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.centerRight,
       children: [
         TextFormField(
+          validator: widget.validator,
+          cursorColor: widget.baseColor ?? const Color(0XFFE0E0E0),
           controller: widget.controller,
+          style: TextStyle(
+            color: widget.textColor ?? const Color(0XFFE0E0E0),
+          ),
           obscureText: _obscure && widget.type == 'password',
+          readOnly: widget.type == 'date',
           decoration: InputDecoration(
             labelText: widget.label,
+            labelStyle: TextStyle(
+              color: widget.baseColor ?? const Color(0XFFE0E0E0),
+            ),
+            focusColor: widget.baseColor ?? const Color(0XFFE0E0E0),
+            floatingLabelStyle: TextStyle(
+              color: widget.baseColor ?? const Color(0XFFE0E0E0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              borderSide: BorderSide(
+                width: 2,
+                color: widget.baseColor ?? const Color(0XFFE0E0E0),
+              ),
+            ),
             border: OutlineInputBorder(
-              borderSide: const BorderSide(width: 1, color: Color(0XFFE0E0E0)),
+              borderSide: BorderSide(
+                width: 1,
+                color: widget.baseColor ?? const Color(0XFFE0E0E0),
+              ),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              borderSide: BorderSide(
+                width: 1,
+                color: Colors.red,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: widget.baseColor ?? const Color(0XFFE0E0E0),
+              ),
               borderRadius: BorderRadius.circular(8.0),
             ),
           ),
+          onTap: _onTap,
         ),
         if (widget.type == 'password')
           InkWell(

@@ -20,6 +20,8 @@ dependencies:
   modal_bottom_sheet: ^2.1.2
   intl: ^0.17.0
   get_storage: ^2.0.3
+  image_picker: ^0.8.6
+  validatorless: ^1.2.3
 
 dev_dependencies:
   flutter_test:

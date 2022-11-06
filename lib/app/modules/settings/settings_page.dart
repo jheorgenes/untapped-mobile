@@ -59,6 +59,31 @@ class SettingsPage extends GetView<SettingsController> {
               height: 20,
             ),
             const Text(
+              'Account',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            OptionItemWidget(
+              title: ' Cadastrar eventos',
+              callback: () {
+                Get.toNamed('/events/create');
+              },
+              color: const Color(0XFF546EE5),
+              icon: const FaIcon(FontAwesomeIcons.gear),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
+            const Text(
               'Privacy & Policy',
               style: TextStyle(
                 color: Colors.white,
