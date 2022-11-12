@@ -1,7 +1,7 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:untapped/app/core/constants/constants.dart';
 import 'package:untapped/app/core/models/event_model.dart';
 import 'package:untapped/app/modules/event_detail/widgets/choose_ticket_bottom_sheet.dart';
 import 'package:untapped/app/modules/event_detail/widgets/description_event_widget.dart';
@@ -23,13 +23,16 @@ class EventDetailPage extends GetView<EventDetailController> {
           Container(
             height: context.heightTransformer(reducedBy: 50),
             width: double.infinity,
-            decoration: const BoxDecoration(
-              boxShadow: [],
+            decoration: BoxDecoration(
+              boxShadow: const [],
               image: DecorationImage(
                 fit: BoxFit.fitWidth,
-                image: ExactAssetImage(
-                  'assets/images/432.png',
-                ),
+                image: params.frontCover != null
+                    ? Image.network(Constants.IMAGES_URL + params.frontCover!)
+                        .image
+                    : const ExactAssetImage(
+                        'assets/images/no-image.jpeg',
+                      ),
               ),
             ),
             child: Stack(
@@ -53,30 +56,31 @@ class EventDetailPage extends GetView<EventDetailController> {
                         ),
                         Row(
                           children: [
-                            Text(
-                              'Local: ${params.addressModel.title}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                side: const BorderSide(
-                                  width: 2,
+                            if (params.addressModel.title != null)
+                              Text(
+                                'Local: ${params.addressModel.title}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
-                                shadowColor: Colors.transparent,
-                                backgroundColor: Colors.transparent,
-                                shape: const CircleBorder(),
                               ),
-                              child: const FaIcon(
-                                FontAwesomeIcons.play,
-                                size: 18,
-                              ),
-                            )
+                            const Spacer(),
+                            // ElevatedButton(
+                            //   onPressed: () {},
+                            //   style: ElevatedButton.styleFrom(
+                            //     side: const BorderSide(
+                            //       width: 2,
+                            //       color: Colors.white,
+                            //     ),
+                            //     shadowColor: Colors.transparent,
+                            //     backgroundColor: Colors.transparent,
+                            //     shape: const CircleBorder(),
+                            //   ),
+                            //   child: const FaIcon(
+                            //     FontAwesomeIcons.play,
+                            //     size: 18,
+                            //   ),
+                            // )
                           ],
                         )
                       ],

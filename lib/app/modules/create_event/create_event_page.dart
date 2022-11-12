@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:untapped/app/core/services/validators.dart';
 import 'package:untapped/app/core/widgets_ui/app_bar_navigator.dart';
 import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 import 'package:untapped/app/core/widgets_ui/input_form_ui.dart';
@@ -8,7 +11,7 @@ import 'package:untapped/app/modules/create_event/widgets/add_ticket_widget.dart
 import 'package:validatorless/validatorless.dart';
 import './create_event_controller.dart';
 
-class CreateEventPage extends GetView<CreateEventController> {
+class CreateEventPage extends GetView<CreateEventController> with Validators {
   CreateEventPage({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
 
@@ -17,28 +20,47 @@ class CreateEventPage extends GetView<CreateEventController> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _subTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+
+  //Address
+  final TextEditingController _cepController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
+  final TextEditingController _titleAddressController = TextEditingController();
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _complementController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
-  final TextEditingController _cepController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _contryController = TextEditingController();
 
+  _getCep(cep) async {
+    if (cepValid(cep)) {
+      var address = await controller.loadCep(cep);
+
+      _streetController.text = address['logradouro'];
+      _districtController.text = address['bairro'];
+      _cityController.text = address['localidade'];
+      _cityController.text = address['localidade'];
+      _stateController.text = address['uf'];
+      _complementController.text = address['complemento'];
+    }
+  }
+
   _submitForm() {
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
-      var data = {
+      controller.data = {
         "title": _titleController.text,
         "subTitle": _subTitleController.text,
         "dateEntry": _dateEntryController.text,
         "deadline": _deadLineController.text,
         "photos": null,
         "media": null,
-        "frontCover": "Capa Provisória",
+        "frontCover": controller.fileNameUpload,
+        "capacity": 3000,
+        "description": _descriptionController.text,
         "address": {
           "street": _streetController.text,
+          "title": _titleAddressController.text,
           "district": _districtController.text,
           "addressComplement": _complementController.text,
           "addressNumber": _numberController.text,
@@ -48,17 +70,18 @@ class CreateEventPage extends GetView<CreateEventController> {
           "contry": _contryController.text,
           "latitude": null,
           "longitude": null,
-          "capacity": 3000,
-          "description": _descriptionController.text,
         },
+        "tickets": [],
       };
 
-      controller.submitedForm(data);
+      controller.submitedForm();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    controller.loaderListener(controller.loading);
+    controller.modalConfirm(controller.modal, 'Evento criado com sucesso!');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarNavigator(
@@ -102,7 +125,11 @@ class CreateEventPage extends GetView<CreateEventController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const AddMediaWidget(),
+                  AddMediaWidget(
+                    callback: (File file) {
+                      controller.uploadFile(file);
+                    },
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -167,6 +194,31 @@ class CreateEventPage extends GetView<CreateEventController> {
                   const SizedBox(
                     height: 25,
                   ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  InputFormUi(
+                    label: 'Nome do local',
+                    controller: _titleAddressController,
+                    baseColor: const Color(0XFF636882),
+                    validator: Validatorless.required('Nome do local'),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  InputFormUi(
+                    type: 'number',
+                    label: 'Cep',
+                    baseColor: const Color(0XFF636882),
+                    controller: _cepController,
+                    validator: Validatorless.required('Cep é obrigatório'),
+                    unfocused: () {
+                      _getCep(_cepController.text);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
                   InputFormUi(
                     label: 'Rua/Av',
                     controller: _streetController,
@@ -194,19 +246,11 @@ class CreateEventPage extends GetView<CreateEventController> {
                     height: 25,
                   ),
                   InputFormUi(
+                    type: 'number',
                     label: 'Número',
                     controller: _numberController,
                     baseColor: const Color(0XFF636882),
                     validator: Validatorless.required('Número é obrigatório'),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  InputFormUi(
-                    label: 'Cep',
-                    baseColor: const Color(0XFF636882),
-                    controller: _cepController,
-                    validator: Validatorless.required('Cep é obrigatório'),
                   ),
                   const SizedBox(
                     height: 25,
@@ -235,7 +279,11 @@ class CreateEventPage extends GetView<CreateEventController> {
                     baseColor: const Color(0XFF636882),
                     validator: Validatorless.required('País é obrigatório'),
                   ),
-                  const AddTicketWidget(),
+                  AddTicketWidget(
+                    setTickets: (tickets) {
+                      controller.data['tickets'] = tickets;
+                    },
+                  ),
                 ],
               ),
             ),

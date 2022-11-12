@@ -18,16 +18,20 @@ class LoginController extends GetxController {
   var loading = false.obs;
 
   authenticate(Map<String, dynamic> data) async {
+    RestClient restClient = Get.find();
     await _getStorage.write(Constants.USER_KEY, null);
+    restClient.headersDefault['Authorization'] = '';
     var response = await _authRepository.login(data);
 
     var accessToken = response['accessToken'];
-    RestClient restClient = Get.find();
+
     restClient.headersDefault['Authorization'] = 'Bearer $accessToken';
-    var id = await _authService.getUserId();
 
     await _getStorage.write('accessToken', accessToken);
     await _getStorage.write('refreshToken', response['refreshToken']);
+
+    var id = await _authService.getUserId();
+
     await _getStorage.write(Constants.USER_KEY, id);
   }
 }

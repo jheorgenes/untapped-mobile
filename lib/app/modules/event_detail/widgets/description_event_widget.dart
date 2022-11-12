@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DescriptionEventWidget extends StatelessWidget {
   String description;
@@ -7,6 +8,7 @@ class DescriptionEventWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: context.width,
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,

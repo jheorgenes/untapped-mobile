@@ -39,6 +39,6 @@ class EventsRepository implements IEventsRepositoty {
   Future<EventModel> store(data) async {
     var response = await _restClient.post('/api/events', jsonEncode(data));
 
-    return EventModel.fromJson(response.body);
+    return EventModel.fromMap(response.body);
   }
 }

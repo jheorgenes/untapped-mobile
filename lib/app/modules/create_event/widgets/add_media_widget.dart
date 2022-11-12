@@ -7,7 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 
 class AddMediaWidget extends StatefulWidget {
-  const AddMediaWidget({Key? key}) : super(key: key);
+  final Function(File file) callback;
+
+  const AddMediaWidget({
+    super.key,
+    required this.callback,
+  });
 
   @override
   State<AddMediaWidget> createState() => _AddMediaWidgetState();
@@ -22,6 +27,7 @@ class _AddMediaWidgetState extends State<AddMediaWidget> {
     if (file != null) {
       setState(() {
         image = Image.file(File(file.path));
+        widget.callback(File(file.path));
       });
     }
   }

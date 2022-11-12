@@ -11,7 +11,6 @@ class AuthRepository implements IAuthRepository {
   final RestClient _restClient;
 
   AuthRepository(this._restClient);
-
   @override
   Future login(Map<String, dynamic> data) async {
     var response = await _restClient.post('/auth/signin', jsonEncode(data));
@@ -22,11 +21,10 @@ class AuthRepository implements IAuthRepository {
   @override
   Future me() async {
     var response = await _restClient.get('/auth/signin/me');
-
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      return {};
+      throw Exception(response.body);
     }
   }
 }

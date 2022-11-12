@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untapped/app/core/services/auth_service.dart';
@@ -60,7 +58,6 @@ class HomeController extends GetxController {
 
   Route? onGenerateRoute(RouteSettings settings) {
     //Método para gerar rotas e chamar as Pages definidas para cada rota
-    log(settings.name ?? 'null');
 
     if (settings.name == '/events') {
       return GetPageRoute(

@@ -16,6 +16,7 @@ class AuthService extends GetxService {
     _getStorage.listenKey(Constants.USER_KEY, (value) {
       _isLogged(value != null);
     });
+
     var accessToken = await _getStorage.read('accessToken');
 
     if (accessToken != null) {
@@ -30,7 +31,15 @@ class AuthService extends GetxService {
       }
     });
 
-    _isLogged(await getUserId() != null);
+    int? userID;
+
+    try {
+      userID = await getUserId();
+    } catch (e) {
+      userID = null;
+    }
+
+    _isLogged(userID != null);
 
     return this;
   }
@@ -38,7 +47,8 @@ class AuthService extends GetxService {
   void logout() => _getStorage.write(Constants.USER_KEY, null);
 
   Future<int?> getUserId() async {
-    user(await _authRepository.me());
+    var userMe = await _authRepository.me();
+    user(userMe);
 
     if (user['id'] == null) {
       await _getStorage.write(Constants.USER_KEY, null);

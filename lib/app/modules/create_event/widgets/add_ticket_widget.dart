@@ -4,7 +4,12 @@ import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 import 'package:untapped/app/modules/create_event/widgets/ticket_widget.dart';
 
 class AddTicketWidget extends StatefulWidget {
-  const AddTicketWidget({Key? key}) : super(key: key);
+  final Function(List<Map<String, dynamic>> tickets) setTickets;
+
+  const AddTicketWidget({
+    super.key,
+    required this.setTickets,
+  });
 
   @override
   State<AddTicketWidget> createState() => _AddTicketWidgetState();
@@ -12,10 +17,11 @@ class AddTicketWidget extends StatefulWidget {
 
 class _AddTicketWidgetState extends State<AddTicketWidget> {
   final List<Map<String, dynamic>> _tickets = [];
+  var tes = {};
 
   _incrementTicket() {
     setState(() {
-      _tickets.add({"data": {}});
+      _tickets.add({});
     });
   }
 
@@ -23,6 +29,10 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
     setState(() {
       _tickets.removeAt(index);
     });
+  }
+
+  _updateTicket(index, ticket) {
+    _tickets[index] = ticket;
   }
 
   @override
@@ -37,7 +47,10 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
           ),
           ElevatedButtonUi(
             backgroundColor: const Color(0XFF636882),
-            callback: _incrementTicket,
+            callback: () {
+              _incrementTicket();
+              widget.setTickets(_tickets);
+            },
             child: IntrinsicWidth(
               child: Padding(
                 padding: const EdgeInsets.all(11.0),
@@ -60,11 +73,24 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
           const SizedBox(
             height: 20,
           ),
-          ..._tickets.asMap().entries.map((entry) => TicketWidget(
-                removeItem: () {
-                  _removeItem(entry.key);
-                },
-              ))
+          ..._tickets
+              .asMap()
+              .entries
+              .map(
+                (entry) => TicketWidget(
+                  key: UniqueKey(),
+                  ticket: _tickets[entry.key],
+                  updateTicket: (p0) {
+                    _updateTicket(entry.key, p0);
+                    widget.setTickets(_tickets);
+                  },
+                  removeItem: () {
+                    _removeItem(entry.key);
+                    widget.setTickets(_tickets);
+                  },
+                ),
+              )
+              .toList()
         ],
       ),
     );

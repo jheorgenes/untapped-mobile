@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -7,6 +8,9 @@ class InputFormUi extends StatefulWidget {
   final String? type;
   final Color? textColor;
   final String? Function(String? va)? validator;
+  final Function()? unfocused;
+  final Function(String va)? onChanged;
+
   final Color? baseColor;
   final TextEditingController? controller;
 
@@ -16,6 +20,8 @@ class InputFormUi extends StatefulWidget {
     this.type = 'text',
     this.textColor = Colors.white,
     this.validator,
+    this.unfocused,
+    this.onChanged,
     this.baseColor,
     this.controller,
   });
@@ -26,6 +32,19 @@ class InputFormUi extends StatefulWidget {
 
 class _InputFormUiState extends State<InputFormUi> {
   bool _obscure = true;
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.unfocused != null) {
+      focusNode.addListener(() {
+        if (!focusNode.hasFocus) {
+          widget.unfocused!();
+        }
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -37,31 +56,36 @@ class _InputFormUiState extends State<InputFormUi> {
 
   _onTap() async {
     if (widget.type == 'date') {
-      DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1950),
-        lastDate: DateTime(2100),
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: Theme.of(context)
-                    .backgroundColor, // header background color
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).backgroundColor,
-                ),
-              ),
-            ),
-            child: child!,
-          );
-        },
+      DateTime? pickedDate = await DatePicker.showDateTimePicker(
+        context,
+        theme: const DatePickerTheme(),
       );
+      //  = await showDatePicker(
+      //   context: context,
+      //   initialDate: DateTime.now(),
+      //   firstDate: DateTime(1950),
+      //   lastDate: DateTime(2100),
+      //   builder: (context, child) {
+      //     return Theme(
+      //       data: Theme.of(context).copyWith(
+      //         colorScheme: ColorScheme.light(
+      //           primary: Theme.of(context)
+      //               .backgroundColor, // header background color
+      //         ),
+      //         textButtonTheme: TextButtonThemeData(
+      //           style: TextButton.styleFrom(
+      //             foregroundColor: Theme.of(context).backgroundColor,
+      //           ),
+      //         ),
+      //       ),
+      //       child: child!,
+      //     );
+      //   },
+      // );
 
       if (pickedDate != null) {
-        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+        String formattedDate =
+            DateFormat('dd/MM/yyyy hh:mm').format(pickedDate);
 
         if (widget.controller != null) {
           widget.controller!.text = formattedDate;
@@ -76,6 +100,8 @@ class _InputFormUiState extends State<InputFormUi> {
       alignment: Alignment.centerRight,
       children: [
         TextFormField(
+          keyboardType: widget.type == 'number' ? TextInputType.number : null,
+          focusNode: focusNode,
           validator: widget.validator,
           cursorColor: widget.baseColor ?? const Color(0XFFE0E0E0),
           controller: widget.controller,
@@ -123,6 +149,7 @@ class _InputFormUiState extends State<InputFormUi> {
             ),
           ),
           onTap: _onTap,
+          onChanged: widget.onChanged,
         ),
         if (widget.type == 'password')
           InkWell(

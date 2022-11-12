@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:untapped/app/core/constants/constants.dart';
 
 import '../../../core/models/event_model.dart';
 
@@ -39,6 +40,7 @@ class HighlightsEvents extends StatelessWidget {
                 children: [
                   ..._events.map((event) {
                     final eventModel = event as EventModel;
+
                     var inputFormat =
                         DateFormat('dd/MM/yyyy HH:mm').parse(event.dateEntry);
                     var date =
@@ -53,13 +55,20 @@ class HighlightsEvents extends StatelessWidget {
                           Container(
                             width: context.widthTransformer(reducedBy: 30),
                             height: 180,
+                            clipBehavior: Clip.hardEdge,
                             margin: const EdgeInsets.only(right: 10),
                             decoration: const BoxDecoration(
-                              color: Colors.red,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
+                            child: eventModel.frontCover != null
+                                ? Image.network(Constants.IMAGES_URL +
+                                    eventModel.frontCover!)
+                                : Image.asset(
+                                    'assets/images/no-image.jpeg',
+                                    fit: BoxFit.fill,
+                                  ),
                           ),
                           Text(
                             eventModel.title,

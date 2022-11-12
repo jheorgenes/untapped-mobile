@@ -31,6 +31,7 @@ class HomePage extends GetView<HomeController> {
       bottomNavigationBar: Obx(() {
         //Definindo um botão do Getx
         return BottomNavigationBar(
+          enableFeedback: false,
           //Retorna uma barra de navegação (como a barra de ferramentas do windows)
           currentIndex: controller
               .activeIndex, //Obtém o index através da chamada do método activeIndex do controller
