@@ -37,8 +37,12 @@ class EventsRepository implements IEventsRepositoty {
 
   @override
   Future<EventModel> store(data) async {
-    var response = await _restClient.post('/api/events', jsonEncode(data));
+    try {
+      var response = await _restClient.post('/api/events', jsonEncode(data));
 
-    return EventModel.fromMap(response.body);
+      return EventModel.fromMap(response.body);
+    } catch (e) {
+      throw Exception('Erro ao salvar ticket');
+    }
   }
 }

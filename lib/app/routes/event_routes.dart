@@ -3,6 +3,8 @@ import 'package:untapped/app/modules/create_event/create_event_bindings.dart';
 import 'package:untapped/app/modules/create_event/create_event_page.dart';
 import 'package:untapped/app/modules/event_detail/event_detail_bindings.dart';
 import 'package:untapped/app/modules/event_detail/event_detail_page.dart';
+import 'package:untapped/app/modules/manager_events/manager_events_bindings.dart';
+import 'package:untapped/app/modules/manager_events/manager_events_page.dart';
 
 class EventRoutes {
   EventRoutes._();
@@ -17,6 +19,11 @@ class EventRoutes {
       name: '/events/create',
       binding: CreateEventBindings(),
       page: () => CreateEventPage(),
-    )
+    ),
+    GetPage(
+      name: '/manager_events',
+      binding: ManagerEventsBindings(),
+      page: () => const ManagerEventsPage(),
+    ),
   ];
 }

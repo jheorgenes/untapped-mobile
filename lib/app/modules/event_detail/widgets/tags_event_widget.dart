@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TagsEventWidget extends StatelessWidget {
-  String dateEntry;
-  String deadline;
+  final String dateEntry;
+  final String deadline;
 
-  TagsEventWidget({
+  const TagsEventWidget({
     super.key,
     required this.dateEntry,
     required this.deadline,

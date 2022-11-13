@@ -1,6 +1,8 @@
 import 'package:get/route_manager.dart';
 import 'package:untapped/app/modules/checkout/checkout_bindings.dart';
 import 'package:untapped/app/modules/checkout/checkout_page.dart';
+import 'package:untapped/app/modules/ticket/ticket_bindings.dart';
+import 'package:untapped/app/modules/ticket/ticket_page.dart';
 
 class CheckoutRoutes {
   CheckoutRoutes._();
@@ -9,7 +11,12 @@ class CheckoutRoutes {
     GetPage(
       name: '/checkout',
       binding: CheckoutBindings(),
-      page: () => const CheckoutPage(),
-    )
+      page: () => CheckoutPage(),
+    ),
+    GetPage(
+      name: '/ticket',
+      binding: TicketBindings(),
+      page: () => const TicketPage(),
+    ),
   ];
 }

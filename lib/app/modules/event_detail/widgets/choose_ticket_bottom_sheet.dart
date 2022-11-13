@@ -1,9 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untapped/app/core/models/ticket_model.dart';
 import 'package:untapped/app/modules/event_detail/widgets/ticket_type_widget.dart';
 
-class ChooseTicketBottomSheet extends StatelessWidget {
-  const ChooseTicketBottomSheet({Key? key}) : super(key: key);
+class ChooseTicketBottomSheet extends StatefulWidget {
+  final List<TicketModel> tickets;
+
+  const ChooseTicketBottomSheet({
+    super.key,
+    required this.tickets,
+  });
+
+  @override
+  State<ChooseTicketBottomSheet> createState() =>
+      _ChooseTicketBottomSheetState();
+}
+
+class _ChooseTicketBottomSheetState extends State<ChooseTicketBottomSheet> {
+  final List<Map<String, dynamic>> selectedTickets = [];
+
+  _updateListTicket(TicketModel ticket, int count) {
+    var index = selectedTickets.indexWhere((item) {
+      return item['ticket'] == ticket;
+    });
+
+    if (index != -1) {
+      if (count == 0) {
+        selectedTickets.removeAt(index);
+      } else {
+        selectedTickets[index]['quantity'] = count;
+      }
+    } else if (count > 0) {
+      selectedTickets.add({
+        'ticket': ticket,
+        'quantity': count,
+      });
+    }
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,39 +71,32 @@ class ChooseTicketBottomSheet extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const TicketTypeWidget(
-                price: 100,
-                title: 'Vip Lounge Gold',
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const TicketTypeWidget(
-                price: 100,
-                title: 'Vip Lounge Gold',
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const TicketTypeWidget(
-                price: 100,
-                title: 'Vip Lounge Gold',
-              ),
-              const SizedBox(
-                height: 5,
-              ),
+              ...widget.tickets
+                  .map(
+                    (e) => TicketTypeWidget(
+                      ticket: e,
+                      onSelectedTicket: (count, ticket) {
+                        _updateListTicket(ticket, count);
+                      },
+                    ),
+                  )
+                  .toList(),
               const Spacer(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      selectedTickets.isNotEmpty ? null : Colors.grey,
                   padding: const EdgeInsets.all(10),
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                 ),
                 onPressed: () {
-                  Get.toNamed('/checkout', arguments: {});
+                  if (selectedTickets.isNotEmpty) {
+                    Get.toNamed('/checkout', arguments: selectedTickets);
+                  }
                 },
                 child: SizedBox(
-                  height: 25,
+                  height: 35,
                   width: context.widthTransformer(reducedBy: 20),
                   child: const Center(
                     child: Text(

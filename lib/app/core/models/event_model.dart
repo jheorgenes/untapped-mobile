@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:untapped/app/core/entities/event_entity.dart';
 import 'package:untapped/app/core/models/address_model.dart';
 
+import 'ticket_model.dart';
+
 class EventModel extends EventEntity {
   @override
   int? id;
@@ -25,6 +27,8 @@ class EventModel extends EventEntity {
   @override
   AddressModel addressModel;
   @override
+  List<TicketModel> tickets;
+  @override
   int capacity;
 
   EventModel({
@@ -39,6 +43,7 @@ class EventModel extends EventEntity {
     required this.addressModel,
     required this.capacity,
     required this.description,
+    required this.tickets,
   }) : super(
           id: id,
           title: title,
@@ -51,6 +56,7 @@ class EventModel extends EventEntity {
           photos: photos,
           frontCover: frontCover,
           media: media,
+          tickets: tickets,
         );
 
   Map<String, dynamic> toMap() {
@@ -70,6 +76,13 @@ class EventModel extends EventEntity {
   }
 
   factory EventModel.fromMap(Map<String, dynamic> map) {
+    List ticke = map['tickets'];
+    var tickets = ticke.map((e) {
+      e['eventId'] = map['id']?.toInt();
+
+      return TicketModel.fromMap(e!);
+    }).toList();
+
     return EventModel(
       id: map['id']?.toInt(),
       title: map['title'] ?? '',
@@ -82,6 +95,7 @@ class EventModel extends EventEntity {
       frontCover: map['frontCover'],
       addressModel: AddressModel.fromMap(map['address']),
       capacity: map['capacity']?.toInt() ?? 0,
+      tickets: tickets,
     );
   }
 

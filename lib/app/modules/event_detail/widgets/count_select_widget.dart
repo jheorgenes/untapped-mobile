@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CountSelectWidget extends StatefulWidget {
-  const CountSelectWidget({Key? key}) : super(key: key);
+  final Function(int count) onChangeCount;
+
+  const CountSelectWidget({super.key, required this.onChangeCount});
 
   @override
   State<CountSelectWidget> createState() => _CountSelectWidgetState();
@@ -14,6 +16,7 @@ class _CountSelectWidgetState extends State<CountSelectWidget> {
   addTicket() {
     setState(() {
       _countTicket++;
+      widget.onChangeCount(_countTicket);
     });
   }
 
@@ -21,6 +24,7 @@ class _CountSelectWidgetState extends State<CountSelectWidget> {
     if (_countTicket > 0) {
       setState(() {
         _countTicket--;
+        widget.onChangeCount(_countTicket);
       });
     }
   }

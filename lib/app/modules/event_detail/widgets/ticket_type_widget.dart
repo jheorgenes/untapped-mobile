@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untapped/app/core/models/ticket_model.dart';
 import 'package:untapped/app/modules/event_detail/widgets/count_select_widget.dart';
 
 class TicketTypeWidget extends StatelessWidget {
-  final double price;
-  final String title;
+  final TicketModel ticket;
+  final Function(int count, TicketModel ticket) onSelectedTicket;
 
   const TicketTypeWidget({
-    Key? key,
-    required this.price,
-    required this.title,
-  }) : super(key: key);
+    super.key,
+    required this.ticket,
+    required this.onSelectedTicket,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 5),
       width: double.infinity,
       height: 64,
       padding: const EdgeInsets.all(14),
@@ -34,6 +37,15 @@ class TicketTypeWidget extends StatelessWidget {
                 Radius.circular(8),
               ),
             ),
+            child: const Center(
+                child: RotationTransition(
+              turns: AlwaysStoppedAnimation(-45 / 360),
+              child: FaIcon(
+                FontAwesomeIcons.ticket,
+                size: 20,
+                color: Colors.white,
+              ),
+            )),
           ),
           const SizedBox(
             width: 10,
@@ -42,17 +54,21 @@ class TicketTypeWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                price.toString(),
+                ticket.valueTicket.toString(),
                 style: const TextStyle(color: Colors.white),
               ),
               Text(
-                title,
+                ticket.ticketClassification,
                 style: const TextStyle(color: Colors.white),
               ),
             ],
           ),
           const Spacer(),
-          const CountSelectWidget(),
+          CountSelectWidget(
+            onChangeCount: (count) {
+              onSelectedTicket(count, ticket);
+            },
+          ),
         ],
       ),
     );

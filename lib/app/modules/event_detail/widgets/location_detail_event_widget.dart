@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:untapped/app/core/models/address_model.dart';
 
 class LocationDetailEventWidget extends StatelessWidget {
-  AddressModel addressModel;
-  String dateEntry;
+  final AddressModel addressModel;
+  final String dateEntry;
 
-  LocationDetailEventWidget({
+  const LocationDetailEventWidget({
     super.key,
     required this.addressModel,
     required this.dateEntry,

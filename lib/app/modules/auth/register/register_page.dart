@@ -50,6 +50,7 @@ class RegisterPage extends GetView<RegisterController> {
                 const InputFormUi(
                   type: 'text',
                   label: 'Nome completo',
+                  textColor: Colors.black,
                 ),
                 const SizedBox(
                   height: 10,
@@ -57,6 +58,7 @@ class RegisterPage extends GetView<RegisterController> {
                 const InputFormUi(
                   type: 'text',
                   label: 'Email',
+                  textColor: Colors.black,
                 ),
                 const SizedBox(
                   height: 10,
@@ -64,6 +66,7 @@ class RegisterPage extends GetView<RegisterController> {
                 const InputFormUi(
                   type: 'password',
                   label: 'Senha',
+                  textColor: Colors.black,
                 ),
                 const SizedBox(
                   height: 10,
@@ -71,6 +74,7 @@ class RegisterPage extends GetView<RegisterController> {
                 const InputFormUi(
                   type: 'password',
                   label: 'Confirmar senha',
+                  textColor: Colors.black,
                 ),
                 const SizedBox(
                   height: 40,

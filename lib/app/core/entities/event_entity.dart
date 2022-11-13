@@ -1,4 +1,5 @@
 import 'package:untapped/app/core/entities/address_entity.dart';
+import 'package:untapped/app/core/models/ticket_model.dart';
 
 class EventEntity {
   int? id;
@@ -11,6 +12,7 @@ class EventEntity {
   String? media;
   String? frontCover;
   AddressEntity addressEntity;
+  List<TicketModel> tickets;
   int capacity;
 
   EventEntity({
@@ -25,5 +27,6 @@ class EventEntity {
     this.frontCover,
     required this.addressEntity,
     required this.capacity,
+    required this.tickets,
   });
 }

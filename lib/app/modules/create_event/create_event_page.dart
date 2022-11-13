@@ -49,29 +49,29 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       controller.data = {
-        "title": _titleController.text,
-        "subTitle": _subTitleController.text,
-        "dateEntry": _dateEntryController.text,
-        "deadline": _deadLineController.text,
-        "photos": null,
-        "media": null,
-        "frontCover": controller.fileNameUpload,
-        "capacity": 3000,
-        "description": _descriptionController.text,
-        "address": {
-          "street": _streetController.text,
-          "title": _titleAddressController.text,
-          "district": _districtController.text,
-          "addressComplement": _complementController.text,
-          "addressNumber": _numberController.text,
-          "cep": _cepController.text,
-          "city": _cityController.text,
-          "state": _stateController.text,
-          "contry": _contryController.text,
-          "latitude": null,
-          "longitude": null,
+        'title': _titleController.text,
+        'subTitle': _subTitleController.text,
+        'dateEntry': _dateEntryController.text,
+        'deadline': _deadLineController.text,
+        'photos': null,
+        'media': null,
+        'frontCover': controller.fileNameUpload,
+        'capacity': 3000,
+        'description': _descriptionController.text,
+        'address': {
+          'street': _streetController.text,
+          'title': _titleAddressController.text,
+          'district': _districtController.text,
+          'addressComplement': _complementController.text,
+          'addressNumber': _numberController.text,
+          'cep': _cepController.text,
+          'city': _cityController.text,
+          'state': _stateController.text,
+          'contry': _contryController.text,
+          'latitude': null,
+          'longitude': null,
         },
-        "tickets": [],
+        'tickets': controller.data['tickets'],
       };
 
       controller.submitedForm();
@@ -280,6 +280,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
                     validator: Validatorless.required('País é obrigatório'),
                   ),
                   AddTicketWidget(
+                    defaultExpirationDate: _deadLineController.text,
                     setTickets: (tickets) {
                       controller.data['tickets'] = tickets;
                     },

@@ -36,7 +36,9 @@ class SettingsPage extends GetView<SettingsController> {
             ),
             OptionItemWidget(
               title: 'Meus eventos',
-              callback: () {},
+              callback: () {
+                Get.toNamed('/manager_events');
+              },
               color: const Color(0XFF546EE5),
               icon: const FaIcon(FontAwesomeIcons.calendar),
             ),

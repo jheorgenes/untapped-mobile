@@ -10,27 +10,34 @@ class TicketWidget extends StatelessWidget {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _ticketExpirationDateController =
+      TextEditingController();
+  final TextEditingController _ticketClassificationController =
+      TextEditingController();
   late Map<String, dynamic> _ticket;
 
   final VoidCallback removeItem;
   final Map<String, dynamic> ticket;
+  final String defaultExpirationDate;
 
   final Function(Map<String, dynamic>) updateTicket;
 
-  TicketWidget({
-    super.key,
-    required this.removeItem,
-    required this.updateTicket,
-    required this.ticket,
-  }) {
+  TicketWidget(
+      {super.key,
+      required this.removeItem,
+      required this.updateTicket,
+      required this.ticket,
+      required this.defaultExpirationDate}) {
     _ticket = ticket;
   }
 
   @override
   Widget build(BuildContext context) {
     _descriptionController.text = ticket['description'] ?? '';
-    _quantityController.text = ticket['quantity'] ?? '';
-    _priceController.text = ticket['price'] ?? '';
+    _priceController.text = ticket['valueTicket'] ?? '';
+    _quantityController.text = ticket['numberOfTicketsPerRating'] ?? '';
+    _ticketClassificationController.text = ticket['ticketClassification'] ?? '';
+    _ticketExpirationDateController.text = defaultExpirationDate;
 
     return Container(
       margin: const EdgeInsets.only(
@@ -86,13 +93,41 @@ class TicketWidget extends StatelessWidget {
             height: 10,
           ),
           InputFormUi(
-            label: 'Quantidade de ingressos',
+            label: 'Classificação',
             type: 'text',
+            controller: _ticketClassificationController,
+            baseColor: const Color(0XFF636882),
+            validator: Validatorless.required('  obrigatório'),
+            onChanged: (va) {
+              _ticket['ticketClassification'] = va;
+              updateTicket(_ticket);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          InputFormUi(
+            label: 'Data de expiração',
+            type: 'date',
+            controller: _ticketExpirationDateController,
+            baseColor: const Color(0XFF636882),
+            validator: Validatorless.required('obrigatório'),
+            onChanged: (va) {
+              _ticket['expirationDate'] = va;
+              updateTicket(_ticket);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          InputFormUi(
+            label: 'Quantidade de ingressos',
+            type: 'number',
             controller: _quantityController,
             baseColor: const Color(0XFF636882),
             validator: Validatorless.required('Quantidade obrigatório'),
             onChanged: (va) {
-              _ticket['quantity'] = va;
+              _ticket['numberOfTicketsPerRating'] = va;
               updateTicket(_ticket);
             },
           ),
@@ -106,7 +141,7 @@ class TicketWidget extends StatelessWidget {
             baseColor: const Color(0XFF636882),
             validator: Validatorless.required('Valor obrigatório'),
             onChanged: (va) {
-              _ticket['price'] = va;
+              _ticket['valueTicket'] = va;
               updateTicket(_ticket);
             },
           ),

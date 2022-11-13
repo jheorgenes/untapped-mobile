@@ -138,11 +138,13 @@ class EventDetailPage extends GetView<EventDetailController> {
                             topRight: Radius.circular(15),
                           ),
                         ),
-                        builder: (context) => const ChooseTicketBottomSheet(),
+                        builder: (context) => ChooseTicketBottomSheet(
+                          tickets: params.tickets,
+                        ),
                       );
                     },
                     child: SizedBox(
-                      height: 25,
+                      height: 35,
                       width: context.widthTransformer(reducedBy: 20),
                       child: const Center(
                         child: Text(
