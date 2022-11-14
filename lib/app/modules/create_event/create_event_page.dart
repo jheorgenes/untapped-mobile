@@ -89,6 +89,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
         showIcon: false,
         color: Theme.of(context).backgroundColor,
       ),
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButtonUi(
         callback: _submitForm,
