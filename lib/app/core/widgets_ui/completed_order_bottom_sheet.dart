@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class CompletedOrderBottomSheet extends StatelessWidget {
   final String message;
-  final String iconAsset;
+  final Widget icon;
   final String subtitle;
   final String? titleButtom;
   final Function()? buttomCallback;
@@ -11,7 +11,7 @@ class CompletedOrderBottomSheet extends StatelessWidget {
   const CompletedOrderBottomSheet({
     super.key,
     required this.message,
-    required this.iconAsset,
+    required this.icon,
     required this.subtitle,
     this.buttomCallback,
     this.titleButtom,
@@ -36,9 +36,7 @@ class CompletedOrderBottomSheet extends StatelessWidget {
         children: [
           Positioned(
             top: -30,
-            child: Image.asset(
-              iconAsset,
-            ),
+            child: icon,
           ),
           SizedBox(
             width: context.width,

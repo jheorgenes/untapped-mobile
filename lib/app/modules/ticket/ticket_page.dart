@@ -38,7 +38,7 @@ class TicketPage extends GetView<TicketController> {
             ),
             builder: (context) => CompletedOrderBottomSheet(
               message: 'Seu ticket foi baixado com sucesso',
-              iconAsset: 'assets/images/icon-downloaded.png',
+              icon: Image.asset('assets/images/icon-downloaded.png'),
               subtitle: '',
               buttomCallback: () {
                 Get.offAllNamed('/home');
@@ -61,8 +61,7 @@ class TicketPage extends GetView<TicketController> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
@@ -79,18 +78,32 @@ class TicketPage extends GetView<TicketController> {
             const SizedBox(
               height: 20,
             ),
-            Text(
-              controller.messageHelp,
-              style: const TextStyle(
-                fontWeight: FontWeight.w300,
-                // fontSize: 25,
-                color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                controller.messageHelp,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w300,
+                  // fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             const TicketDetailWidget(),
+            const SizedBox(
+              height: 20,
+            ),
+            const TicketDetailWidget(),
+            const SizedBox(
+              height: 20,
+            ),
+            const TicketDetailWidget(),
+            const SizedBox(
+              height: 100,
+            ),
           ],
         ),
       ),

@@ -4,13 +4,21 @@ import 'package:untapped/app/core/widgets_ui/input_form_ui.dart';
 import 'package:validatorless/validatorless.dart';
 
 class FormPaymentWidget extends StatelessWidget {
-  FormPaymentWidget({super.key, required this.formKey});
-  Key formKey;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _dateValidController = TextEditingController();
-  final TextEditingController _cvvController = TextEditingController();
+  const FormPaymentWidget({
+    super.key,
+    required this.formKey,
+    required this.emailController,
+    required this.nameController,
+    required this.dateValidController,
+    required this.cardNumberController,
+    required this.cvvController,
+  });
+  final Key formKey;
+  final TextEditingController emailController;
+  final TextEditingController nameController;
+  final TextEditingController dateValidController;
+  final TextEditingController cardNumberController;
+  final TextEditingController cvvController;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class FormPaymentWidget extends StatelessWidget {
             children: [
               InputFormUi(
                 label: 'Seu email',
-                controller: _emailController,
+                controller: emailController,
                 baseColor: const Color(0XFF636882),
                 validator: Validatorless.required('Seu email'),
               ),
@@ -46,7 +54,7 @@ class FormPaymentWidget extends StatelessWidget {
               ),
               InputFormUi(
                 label: 'Nome',
-                controller: _nameController,
+                controller: nameController,
                 baseColor: const Color(0XFF636882),
                 validator: Validatorless.required('Nome obrigatório'),
               ),
@@ -55,7 +63,7 @@ class FormPaymentWidget extends StatelessWidget {
               ),
               InputFormUi(
                 label: 'Número do cartão',
-                controller: _cardNumberController,
+                controller: cardNumberController,
                 baseColor: const Color(0XFF636882),
                 validator: Validatorless.required('Número do cartão'),
               ),
@@ -69,7 +77,7 @@ class FormPaymentWidget extends StatelessWidget {
                     width: context.widthTransformer(reducedBy: 60),
                     child: InputFormUi(
                       label: 'Validade',
-                      controller: _dateValidController,
+                      controller: dateValidController,
                       baseColor: const Color(0XFF636882),
                       validator: Validatorless.required('Validade'),
                     ),
@@ -78,7 +86,7 @@ class FormPaymentWidget extends StatelessWidget {
                     width: context.widthTransformer(reducedBy: 60),
                     child: InputFormUi(
                       label: 'CVV',
-                      controller: _cvvController,
+                      controller: cvvController,
                       baseColor: const Color(0XFF636882),
                       validator: Validatorless.required('CVV'),
                     ),

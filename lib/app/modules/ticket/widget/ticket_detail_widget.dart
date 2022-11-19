@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:untapped/app/modules/ticket/widget/divider_widget.dart';
 
 class TicketDetailWidget extends StatelessWidget {
@@ -10,7 +11,6 @@ class TicketDetailWidget extends StatelessWidget {
     return Center(
       child: Container(
         width: context.widthTransformer(reducedBy: 10),
-        height: context.heightTransformer(reducedBy: 45),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(11)),
@@ -154,6 +154,14 @@ class TicketDetailWidget extends StatelessWidget {
               ),
             ),
             const DividerWidget(),
+            Center(
+              child: QrImage(
+                data: '2',
+                version: QrVersions.auto,
+                size: 120,
+                gapless: false,
+              ),
+            )
           ],
         ),
       ),
