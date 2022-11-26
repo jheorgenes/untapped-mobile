@@ -119,7 +119,7 @@ class EventDetailPage extends GetView<EventDetailController> {
                     height: 25,
                   ),
                   DescriptionEventWidget(
-                    description: params.description,
+                    description: params.description!,
                   ),
                   const Spacer(),
                   ElevatedButton(
@@ -139,7 +139,7 @@ class EventDetailPage extends GetView<EventDetailController> {
                           ),
                         ),
                         builder: (context) => ChooseTicketBottomSheet(
-                          tickets: params.tickets,
+                          tickets: params.tickets!,
                         ),
                       );
                     },

@@ -88,7 +88,7 @@ class CheckoutPage extends GetView<CheckoutController> {
         subtitle: '',
         buttomCallback: () {
           if (result['status'] == 'success') {
-            Get.toNamed('/ticket');
+            Get.toNamed('/ticket', arguments: result);
           } else {
             Navigator.of(context).pop();
           }

@@ -1,7 +1,7 @@
 class AddressEntity {
   int? id;
   String street;
-  String? title;
+  String title;
   String district;
   String addressComplement;
   String? addressNumber;
@@ -17,7 +17,7 @@ class AddressEntity {
     required this.street,
     required this.district,
     required this.addressComplement,
-    this.title,
+    required this.title,
     this.addressNumber,
     this.cep,
     required this.state,

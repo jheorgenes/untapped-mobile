@@ -38,7 +38,8 @@ class TicketWidget extends StatelessWidget {
     _quantityController.text = ticket['numberOfTicketsPerRating'] ?? '';
     _ticketClassificationController.text = ticket['ticketClassification'] ?? '';
     _ticketExpirationDateController.text = defaultExpirationDate;
-
+    _ticket['expirationDate'] = defaultExpirationDate;
+    updateTicket(_ticket);
     return Container(
       margin: const EdgeInsets.only(
         bottom: 20,

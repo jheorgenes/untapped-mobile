@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:untapped/app/core/entities/event_entity.dart';
 import 'package:untapped/app/core/models/address_model.dart';
@@ -11,9 +12,9 @@ class EventModel extends EventEntity {
   @override
   String title;
   @override
-  String subTitle;
+  String? subTitle;
   @override
-  String description;
+  String? description;
   @override
   String dateEntry;
   @override
@@ -27,23 +28,23 @@ class EventModel extends EventEntity {
   @override
   AddressModel addressModel;
   @override
-  List<TicketModel> tickets;
+  List<TicketModel>? tickets;
   @override
-  int capacity;
+  int? capacity;
 
   EventModel({
     required this.id,
     required this.title,
-    required this.subTitle,
+    this.subTitle,
     required this.dateEntry,
     required this.deadline,
     this.photos,
     this.frontCover,
     this.media,
     required this.addressModel,
-    required this.capacity,
-    required this.description,
-    required this.tickets,
+    this.capacity,
+    this.description,
+    this.tickets,
   }) : super(
           id: id,
           title: title,
@@ -76,12 +77,17 @@ class EventModel extends EventEntity {
   }
 
   factory EventModel.fromMap(Map<String, dynamic> map) {
-    List ticke = map['tickets'];
-    var tickets = ticke.map((e) {
-      e['eventId'] = map['id']?.toInt();
+    List? ticke;
+    List<TicketModel>? tickets;
+    if (map['tickets'] != null) {
+      ticke = map['tickets'];
+      tickets = ticke!.map((e) {
+        e['eventId'] = map['id']?.toInt();
 
-      return TicketModel.fromMap(e!);
-    }).toList();
+        return TicketModel.fromMap(e!);
+      }).toList();
+    }
+    log('ol');
 
     return EventModel(
       id: map['id']?.toInt(),

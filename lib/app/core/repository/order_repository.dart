@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:untapped/app/core/rest_client/rest_client.dart';
 
 abstract class IOrderRepository {
-  Future list();
+  list();
+  ticketsOrders();
   Future create(Map<String, dynamic> data);
 }
 
@@ -23,7 +24,17 @@ class OrderRepository implements IOrderRepository {
   }
 
   @override
-  Future list() async {
+  ticketsOrders() async {
+    var response = await _restClient.get('/api/ticketsOrder');
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception(response.body);
+    }
+  }
+
+  @override
+  list() async {
     var response = await _restClient.get('/api/order');
     if (response.statusCode == 200) {
       return response.body;

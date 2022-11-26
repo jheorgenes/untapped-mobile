@@ -138,7 +138,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
                     label: 'Título',
                     controller: _titleController,
                     baseColor: const Color(0XFF636882),
-                    // validator: Validatorless.required('Título é obrigatório'),
+                    validator: Validatorless.required('Título é obrigatório'),
                   ),
                   const SizedBox(
                     height: 15,

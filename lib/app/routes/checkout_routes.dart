@@ -16,7 +16,7 @@ class CheckoutRoutes {
     GetPage(
       name: '/ticket',
       binding: TicketBindings(),
-      page: () => const TicketPage(),
+      page: () => TicketPage(),
     ),
   ];
 }

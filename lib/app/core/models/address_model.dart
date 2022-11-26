@@ -10,7 +10,7 @@ class AddressModel extends AddressEntity {
   @override
   String district;
   @override
-  String? title;
+  String title;
   @override
   String addressComplement;
   @override
@@ -37,7 +37,7 @@ class AddressModel extends AddressEntity {
     required this.cep,
     required this.city,
     required this.country,
-    this.title,
+    required this.title,
     required this.state,
     this.latitude,
     this.longitude,

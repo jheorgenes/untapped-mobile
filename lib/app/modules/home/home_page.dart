@@ -5,7 +5,7 @@ import './home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
   //Recebe um GetView do tipo HomeController para injetar informação na classe de visualização
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,12 @@ class HomePage extends GetView<HomeController> {
       bottomNavigationBar: Obx(() {
         //Definindo um botão do Getx
         return BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+
+          backgroundColor: Theme.of(context).backgroundColor,
+          selectedItemColor: const Color(0XFFEF574E),
+          unselectedItemColor: Colors.white,
+          // sele
           enableFeedback: false,
           //Retorna uma barra de navegação (como a barra de ferramentas do windows)
           currentIndex: controller
@@ -38,9 +44,9 @@ class HomePage extends GetView<HomeController> {
           onTap: (int index) {
             controller.activeIndex = index;
           },
-          selectedItemColor: const Color(0XFFEF574E),
           items: [
             const BottomNavigationBarItem(
+              tooltip: '',
               label: 'Events',
               backgroundColor: Color(0XFF181A20),
               icon: Icon(
@@ -51,6 +57,7 @@ class HomePage extends GetView<HomeController> {
                 controller.isShow(controller.authService.user['roles']))
               const BottomNavigationBarItem(
                 label: 'Dasboard',
+                tooltip: '',
                 backgroundColor: Color(0XFF181A20),
                 icon: Icon(
                   FontAwesomeIcons.gauge,
@@ -58,6 +65,7 @@ class HomePage extends GetView<HomeController> {
               ),
             const BottomNavigationBarItem(
               label: 'Discover',
+              tooltip: '',
               backgroundColor: Color(0XFF181A20),
               icon: Icon(
                 FontAwesomeIcons.compass,
@@ -65,6 +73,7 @@ class HomePage extends GetView<HomeController> {
             ),
             const BottomNavigationBarItem(
               label: 'Tickets',
+              tooltip: '',
               backgroundColor: Color(0XFF181A20),
               icon: Icon(
                 FontAwesomeIcons.bookmark,
@@ -72,6 +81,7 @@ class HomePage extends GetView<HomeController> {
             ),
             const BottomNavigationBarItem(
               label: 'Profile',
+              tooltip: '',
               backgroundColor: Color(0XFF181A20),
               icon: Icon(
                 FontAwesomeIcons.user,

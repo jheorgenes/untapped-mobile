@@ -42,7 +42,6 @@ class CreateEventController extends GetxController with LoaderMixin {
 
   uploadFile(File file) async {
     var filename = file.path.split("/").last;
-
     var formData = FormData({
       'file': MultipartFile(
         file,
