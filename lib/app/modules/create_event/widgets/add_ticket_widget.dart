@@ -5,12 +5,13 @@ import 'package:untapped/app/modules/create_event/widgets/ticket_widget.dart';
 
 class AddTicketWidget extends StatefulWidget {
   final Function(List<Map<String, dynamic>> tickets) setTickets;
-  final String defaultExpirationDate;
+
+  final TextEditingController deadLineController;
 
   const AddTicketWidget({
     super.key,
     required this.setTickets,
-    required this.defaultExpirationDate,
+    required this.deadLineController,
   });
 
   @override
@@ -24,6 +25,7 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
     setState(() {
       _tickets.add({
         'statusTicket': 'DISPONIVEL',
+        'expirationDate': widget.deadLineController.text,
       });
     });
   }
@@ -82,7 +84,7 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
               .map(
                 (entry) => TicketWidget(
                   key: UniqueKey(),
-                  defaultExpirationDate: widget.defaultExpirationDate,
+                  defaultExpirationDate: widget.deadLineController.text,
                   ticket: _tickets[entry.key],
                   updateTicket: (p0) {
                     _updateTicket(entry.key, p0);

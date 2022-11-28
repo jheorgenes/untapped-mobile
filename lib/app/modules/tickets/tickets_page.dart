@@ -24,7 +24,7 @@ class TicketsPage extends GetView<TicketsController> {
                   ...ticketsOrder.map(
                     (order) {
                       final event = order['ticket']['event'];
-                      print(event);
+
                       final eventModel = EventModel.fromMap(event);
 
                       return TicketDetailWidget(

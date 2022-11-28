@@ -18,6 +18,7 @@ class TicketDetailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ticket = order['ticket'];
+    final qrCode = order['qrCode'] ?? 0;
     DateTime tempDate =
         DateFormat("dd/MM/yyyy HH:mm").parse('${ticket['expirationDate']}');
     String date = DateFormat('dd/MM/yyyy').format(tempDate);
@@ -172,7 +173,7 @@ class TicketDetailWidget extends StatelessWidget {
               const DividerWidget(),
               Center(
                 child: QrImage(
-                  data: '2',
+                  data: '$qrCode',
                   version: QrVersions.auto,
                   size: 120,
                   gapless: false,

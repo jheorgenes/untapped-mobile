@@ -281,7 +281,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
                     validator: Validatorless.required('País é obrigatório'),
                   ),
                   AddTicketWidget(
-                    defaultExpirationDate: _deadLineController.text,
+                    deadLineController: _deadLineController,
                     setTickets: (tickets) {
                       controller.data['tickets'] = tickets;
                     },
