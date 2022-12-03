@@ -6,6 +6,7 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
   final bool showIcon;
   final Color color;
   final Color? backIconColor;
+  final Widget? customRightWidget;
 
   const AppBarNavigator({
     super.key,
@@ -13,6 +14,7 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
     required this.showIcon,
     required this.color,
     this.backIconColor,
+    this.customRightWidget,
   });
 
   @override
@@ -63,6 +65,7 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
               FontAwesomeIcons.bookmark,
               color: Colors.white,
             ),
+          if (customRightWidget != null) customRightWidget!
         ],
       ),
     );

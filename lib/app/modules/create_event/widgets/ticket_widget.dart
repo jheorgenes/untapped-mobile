@@ -108,7 +108,7 @@ class TicketWidget extends StatelessWidget {
           ),
           InputFormUi(
             label: 'Data de expiração',
-            type: 'date',
+            type: 'datetime',
             controller: _ticketExpirationDateController,
             baseColor: const Color(0XFF636882),
             validator: Validatorless.required('obrigatório'),

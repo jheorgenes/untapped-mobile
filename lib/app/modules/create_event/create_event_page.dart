@@ -164,7 +164,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
                     height: 25,
                   ),
                   InputFormUi(
-                    type: 'date',
+                    type: 'datetime',
                     label: 'Data início do evento',
                     controller: _dateEntryController,
                     baseColor: const Color(0XFF636882),
@@ -175,7 +175,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
                     height: 25,
                   ),
                   InputFormUi(
-                    type: 'date',
+                    type: 'datetime',
                     label: 'Data fim do evento',
                     controller: _deadLineController,
                     baseColor: const Color(0XFF636882),

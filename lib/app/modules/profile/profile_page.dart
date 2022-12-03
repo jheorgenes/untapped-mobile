@@ -1,21 +1,16 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:untapped/app/core/widgets_ui/app_bar_navigator.dart';
-import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
-import 'package:untapped/app/core/widgets_ui/input_form_ui.dart';
-import 'package:untapped/app/modules/auth/register/widgets/dropdown_button_widget.dart';
 import 'package:validatorless/validatorless.dart';
-import './register_controller.dart';
+import '../../core/widgets_ui/app_bar_navigator.dart';
+import '../../core/widgets_ui/elevated_button_ui.dart';
+import '../../core/widgets_ui/input_form_ui.dart';
+import './profile_controller.dart';
 
-class RegisterPage extends GetView<RegisterController> {
-  RegisterPage({super.key});
-
+class ProfilePage extends GetView<ProfileController> {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -24,6 +19,7 @@ class RegisterPage extends GetView<RegisterController> {
       TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
+  ProfilePage({super.key});
 
   _submit() async {
     final formValid = _formKey.currentState?.validate() ?? false;
@@ -44,7 +40,7 @@ class RegisterPage extends GetView<RegisterController> {
     };
 
     if (formValid) {
-      var result = await controller.createUser(data);
+      var result = await controller.updateUser(data);
 
       if (result?['id'] != null) {
         await Get.defaultDialog(
@@ -53,11 +49,11 @@ class RegisterPage extends GetView<RegisterController> {
         );
 
         Timer(const Duration(milliseconds: 800), () {
-          Get.offNamed('/auth/login');
+          Get.offNamed('/home');
         });
       } else {
         Get.defaultDialog(
-          title: 'Erro ao criar usuário!',
+          title: 'Erro ao atualizar usuário!',
           middleText: '',
           barrierDismissible: false,
         );
@@ -71,63 +67,81 @@ class RegisterPage extends GetView<RegisterController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarNavigator(
-        title: '',
-        showIcon: false,
-        color: Colors.transparent,
-        backIconColor: Colors.black,
-      ),
-      body: SizedBox(
-        width: context.width,
-        height: context.height,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: SingleChildScrollView(
-            child: Form(
+    var user = controller.authService.user.value;
+    _userNameController.text = user['username'];
+    _emailController.text = user['email'];
+    _nameController.text = user['fullname'] ?? '';
+    _cpfController.text = user['cpf'];
+    _birthDateController.text = user['birthDate'];
+    _passwordController.text = '************';
+    _confirmPasswordController.text = '************';
+
+    return Obx(() {
+      return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBarNavigator(
+          title: 'Meu perfil',
+          showIcon: false,
+          color: Theme.of(context).backgroundColor,
+          customRightWidget: !controller.editMode.value
+              ? ElevatedButtonUi(
+                  backgroundColor: Colors.transparent,
+                  callback: () {
+                    controller.editMode(true);
+                  },
+                  child: const Text(
+                    'Editar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              : null,
+        ),
+        body: SizedBox(
+          width: context.width,
+          height: context.height,
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: SingleChildScrollView(
+                child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Criar conta',
+                    'Usuário',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    controller.welcomeMessage,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Color(0XFF9E9E9E),
-                    ),
-                  ),
+
                   const SizedBox(
                     height: 20,
                   ),
-                  DropdownButtonWidget(
-                    title: 'Tipo de usuário',
-                    items: controller.items,
-                    onChanged: (labels) {
-                      controller.selectedPermissions = labels
-                          .map((label) => controller.items.firstWhere(
-                              (element) => label == element['label']))
-                          .toList();
-                      log('ola');
-                    },
-                  ),
+                  // DropdownButtonWidget(
+                  //   title: 'Tipo de usuário',
+                  //   items: controller.items,
+                  //   onChanged: (labels) {
+                  //     controller.selectedPermissions = labels
+                  //         .map((label) => controller.items.firstWhere(
+                  //             (element) => label == element['label']))
+                  //         .toList();
+                  //     log('ola');
+                  //   },
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
                   InputFormUi(
+                    enabled: controller.editMode.value,
                     type: 'text',
                     label: 'Nome de usuário',
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     controller: _userNameController,
                     validator:
                         Validatorless.required('Nome de usuário é obrigatório'),
@@ -137,8 +151,9 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'text',
+                    enabled: controller.editMode.value,
                     label: 'Nome completo',
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     controller: _nameController,
                     validator: Validatorless.required('Nome é obrigatório'),
                   ),
@@ -147,9 +162,10 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'text',
+                    enabled: controller.editMode.value,
                     label: 'Email',
                     controller: _emailController,
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     validator: Validatorless.required('Email é obrigatório'),
                   ),
                   const SizedBox(
@@ -157,8 +173,9 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'texr',
+                    enabled: controller.editMode.value,
                     label: 'CPF',
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     controller: _cpfController,
                     validator: Validatorless.required('CPF é obrigatório'),
                   ),
@@ -167,8 +184,9 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'date',
+                    enabled: controller.editMode.value,
                     label: 'Data de nascimento',
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     controller: _birthDateController,
                     validator: Validatorless.required(
                         'Data de nascimento é obrigatório'),
@@ -178,46 +196,56 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'password',
+                    enabled: controller.editMode.value,
                     label: 'Senha',
-                    textColor: Colors.black,
+                    textColor: Colors.white,
                     validator: Validatorless.multiple([
                       Validatorless.required('Senha é obrigatório'),
                       Validatorless.min(
                           8, 'A senha deve ter no mínimo 8 digitos')
                     ]),
+                    colorIconHide: Colors.white,
                     controller: _passwordController,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InputFormUi(
-                    type: 'password',
-                    label: 'Confirmar senha',
-                    textColor: Colors.black,
-                    controller: _confirmPasswordController,
-                    validator: Validatorless.multiple([
-                      Validatorless.compare(
-                          _passwordController, 'Senha devem ser iguais'),
-                      Validatorless.required('Deve confirmar a senha'),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButtonUi(
-                    callback: _submit,
-                    child: SizedBox(
-                      width: context.width,
-                      height: 57,
-                      child: const Center(child: Text('Criar conta')),
+                  if (controller.editMode.value)
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
+                  if (controller.editMode.value)
+                    //edit mode
+                    InputFormUi(
+                      type: 'password',
+                      enabled: controller.editMode.value,
+                      label: 'Confirmar senha',
+                      textColor: Colors.white,
+                      controller: _confirmPasswordController,
+                      colorIconHide: Colors.white,
+                      validator: Validatorless.multiple([
+                        Validatorless.compare(
+                            _passwordController, 'Senha devem ser iguais'),
+                        Validatorless.required('Deve confirmar a senha'),
+                      ]),
+                    ),
+                  if (controller.editMode.value)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  if (controller.editMode.value)
+                    ElevatedButtonUi(
+                      callback: _submit,
+                      child: SizedBox(
+                        width: context.width,
+                        height: 57,
+                        child:
+                            const Center(child: Text('Atualizar informações')),
+                      ),
+                    ),
                 ],
               ),
-            ),
+            )),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 
 class AvatarWidget extends StatelessWidget {
   const AvatarWidget({Key? key}) : super(key: key);
@@ -11,32 +12,38 @@ class AvatarWidget extends StatelessWidget {
       width: context.width,
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              const Text(
-                'Andre ricardo',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+          ElevatedButtonUi(
+            backgroundColor: Colors.transparent,
+            callback: () {
+              Get.toNamed('/profile');
+            },
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
                 ),
-              ),
-              const Spacer(),
-              const FaIcon(
-                FontAwesomeIcons.angleRight,
-                color: Colors.white,
-              ),
-            ],
+                const SizedBox(
+                  width: 15,
+                ),
+                const Text(
+                  'Andre ricardo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const Spacer(),
+                const FaIcon(
+                  FontAwesomeIcons.angleRight,
+                  color: Colors.white,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,

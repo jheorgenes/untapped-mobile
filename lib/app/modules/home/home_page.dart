@@ -21,6 +21,7 @@ class HomePage extends GetView<HomeController> {
         elevation: 0,
         backgroundColor: Theme.of(context).backgroundColor,
       ),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Navigator(
         key: Get.nestedKey(HomeController
             .NAVIGATOR_KEY), //Obtendo o a key do HomeController definida
