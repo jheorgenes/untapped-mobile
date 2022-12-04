@@ -131,7 +131,6 @@ class ProfilePage extends GetView<ProfileController> {
                   //         .map((label) => controller.items.firstWhere(
                   //             (element) => label == element['label']))
                   //         .toList();
-                  //     log('ola');
                   //   },
                   // ),
                   const SizedBox(

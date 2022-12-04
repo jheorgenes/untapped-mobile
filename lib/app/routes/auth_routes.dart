@@ -1,4 +1,6 @@
 import 'package:get/route_manager.dart';
+import 'package:untapped/app/modules/address/address_bindings.dart';
+import 'package:untapped/app/modules/address/address_page.dart';
 import 'package:untapped/app/modules/auth/login/login_bindings.dart';
 import 'package:untapped/app/modules/auth/login/login_page.dart';
 import 'package:untapped/app/modules/auth/presentation/presentation_bindings.dart';
@@ -31,6 +33,11 @@ class AuthRoutes {
       name: '/profile', //Nome da Rota
       binding: ProfileBindings(), //Efetua o binding do Controller
       page: () => ProfilePage(), //Constrói a página
-    )
+    ),
+    GetPage(
+      name: '/user/address', //Nome da Rota
+      binding: AddressBindings(), //Efetua o binding do Controller
+      page: () => AddressPage(), //Constrói a página
+    ),
   ];
 }

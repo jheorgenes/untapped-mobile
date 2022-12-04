@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:untapped/app/core/entities/event_entity.dart';
 import 'package:untapped/app/core/models/address_model.dart';
@@ -87,7 +86,6 @@ class EventModel extends EventEntity {
         return TicketModel.fromMap(e!);
       }).toList();
     }
-    log('ol');
 
     return EventModel(
       id: map['id']?.toInt(),

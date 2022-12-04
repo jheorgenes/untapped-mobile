@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -112,13 +111,18 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   DropdownButtonWidget(
                     title: 'Tipo de usuário',
+                    validator: (value) {
+                      if (value == null || (value.isEmpty)) {
+                        return 'Informe o tipo de usuário';
+                      }
+                      return null;
+                    },
                     items: controller.items,
                     onChanged: (labels) {
                       controller.selectedPermissions = labels
                           .map((label) => controller.items.firstWhere(
                               (element) => label == element['label']))
                           .toList();
-                      log('ola');
                     },
                   ),
                   const SizedBox(
@@ -126,7 +130,7 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   InputFormUi(
                     type: 'text',
-                    label: 'Nome de usuário',
+                    label: 'Email de acesso',
                     textColor: Colors.black,
                     controller: _userNameController,
                     validator:

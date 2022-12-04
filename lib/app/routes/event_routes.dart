@@ -1,4 +1,6 @@
 import 'package:get/route_manager.dart';
+import 'package:untapped/app/modules/categories/categories_bindings.dart';
+import 'package:untapped/app/modules/categories/categories_page.dart';
 import 'package:untapped/app/modules/create_event/create_event_bindings.dart';
 import 'package:untapped/app/modules/create_event/create_event_page.dart';
 import 'package:untapped/app/modules/event_detail/event_detail_bindings.dart';
@@ -19,6 +21,11 @@ class EventRoutes {
       name: '/events/create',
       binding: CreateEventBindings(),
       page: () => CreateEventPage(),
+    ),
+    GetPage(
+      name: '/category/create',
+      binding: CategoriesBindings(),
+      page: () => CategoriesPage(),
     ),
     GetPage(
       name: '/manager_events',

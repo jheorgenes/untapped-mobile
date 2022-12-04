@@ -22,12 +22,13 @@ class TicketWidget extends StatelessWidget {
 
   final Function(Map<String, dynamic>) updateTicket;
 
-  TicketWidget(
-      {super.key,
-      required this.removeItem,
-      required this.updateTicket,
-      required this.ticket,
-      required this.defaultExpirationDate}) {
+  TicketWidget({
+    super.key,
+    required this.removeItem,
+    required this.updateTicket,
+    required this.ticket,
+    required this.defaultExpirationDate,
+  }) {
     _ticket = ticket;
   }
 

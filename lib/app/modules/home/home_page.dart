@@ -35,8 +35,11 @@ class HomePage extends GetView<HomeController> {
           type: BottomNavigationBarType.fixed,
 
           backgroundColor: Theme.of(context).backgroundColor,
-          selectedItemColor: const Color(0XFFEF574E),
-          unselectedItemColor: Colors.white,
+
+          selectedItemColor: const Color(0xFFFFEA74),
+
+          unselectedItemColor: const Color(0XFFFFFAFA),
+          // unselectedItemColor: Colors.white,
           // sele
           enableFeedback: false,
           //Retorna uma barra de navegação (como a barra de ferramentas do windows)

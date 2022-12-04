@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import './discover_controller.dart';
 import 'package:untapped/app/modules/discover/widgets/highlights_category.dart';
 import 'package:untapped/app/modules/discover/widgets/recommendations.dart';
-import 'package:untapped/app/modules/discover/widgets/toggle_mode_widget.dart';
 
 class DiscoverPage extends GetView<DiscoverController> {
   const DiscoverPage({Key? key}) : super(key: key);
@@ -23,20 +22,20 @@ class DiscoverPage extends GetView<DiscoverController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
-            children: [
-              Obx(() {
-                return ToggleModeWidget(
-                  isNow: controller.isNow,
-                  toggleIsNow: (bool value) {
-                    controller.isNow = value;
-                  },
-                );
-              }),
-              const HighlightsCategory(),
-              const SizedBox(
+            children: const [
+              // Obx(() {
+              //   return ToggleModeWidget(
+              //     isNow: controller.isNow,
+              //     toggleIsNow: (bool value) {
+              //       controller.isNow = value;
+              //     },
+              //   );
+              // }),
+              HighlightsCategory(),
+              SizedBox(
                 height: 41,
               ),
-              const Recommendations(),
+              Recommendations(),
             ],
           ),
         ),

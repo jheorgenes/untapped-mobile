@@ -82,6 +82,28 @@ class SettingsPage extends GetView<SettingsController> {
             const SizedBox(
               height: 16,
             ),
+            OptionItemWidget(
+              title: ' Criar categoria',
+              callback: () {
+                Get.toNamed('/category/create');
+              },
+              color: const Color(0XFF546EE5),
+              icon: const FaIcon(FontAwesomeIcons.gear),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            OptionItemWidget(
+              title: ' Endereço',
+              callback: () {
+                Get.toNamed('/user/address');
+              },
+              color: const Color(0XFF546EE5),
+              icon: const FaIcon(FontAwesomeIcons.locationArrow),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
             const Divider(
               color: Colors.white,
             ),
