@@ -58,4 +58,9 @@ class AuthService extends GetxService {
 
     return user['id'];
   }
+
+  Future reloadUser() async {
+    var userMe = await _authRepository.me();
+    user(userMe);
+  }
 }

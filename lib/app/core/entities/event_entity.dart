@@ -11,7 +11,8 @@ class EventEntity {
   String? photos;
   String? media;
   String? frontCover;
-  AddressEntity addressEntity;
+  AddressEntity? addressEntity;
+  List categories;
   List<TicketModel>? tickets;
   int? capacity;
 
@@ -22,10 +23,11 @@ class EventEntity {
     required this.dateEntry,
     required this.deadline,
     this.description,
+    this.categories = const [],
     this.photos,
     this.media,
     this.frontCover,
-    required this.addressEntity,
+    this.addressEntity,
     this.capacity,
     this.tickets,
   });

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import './discover_controller.dart';
-import 'package:untapped/app/modules/discover/widgets/highlights_category.dart';
-import 'package:untapped/app/modules/discover/widgets/recommendations.dart';
+import 'package:untapped/app/modules/discover/widgets/highlights_category_widget.dart';
 
 class DiscoverPage extends GetView<DiscoverController> {
   const DiscoverPage({Key? key}) : super(key: key);
@@ -21,22 +20,44 @@ class DiscoverPage extends GetView<DiscoverController> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: const [
-              // Obx(() {
-              //   return ToggleModeWidget(
-              //     isNow: controller.isNow,
-              //     toggleIsNow: (bool value) {
-              //       controller.isNow = value;
-              //     },
-              //   );
-              // }),
-              HighlightsCategory(),
-              SizedBox(
-                height: 41,
-              ),
-              Recommendations(),
-            ],
+          child: FutureBuilder(
+            future: controller.loadCategories(),
+            builder: (context, snapchot) {
+              if (snapchot.hasData) {
+                final data = snapchot.data as List;
+                return Column(
+                  children: [
+                    // Obx(() {
+                    //   return ToggleModeWidget(
+                    //     isNow: controller.isNow,
+                    //     toggleIsNow: (bool value) {
+                    //       controller.isNow = value;
+                    //     },
+                    //   );
+                    // }),
+
+                    ...data.map((item) {
+                      return HighlightsCategoryWidget(
+                        category: item,
+                      );
+                    }).toList(),
+
+                    const SizedBox(
+                      height: 41,
+                    ),
+                    // const Recommendations(),
+                  ],
+                );
+              } else {
+                return SizedBox(
+                  width: context.width,
+                  height: context.heightTransformer(reducedBy: 40),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+            },
           ),
         ),
       )),

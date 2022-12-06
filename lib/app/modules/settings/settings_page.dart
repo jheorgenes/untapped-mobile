@@ -10,6 +10,7 @@ class SettingsPage extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
+    var user = controller.authService.user;
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -19,7 +20,10 @@ class SettingsPage extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AvatarWidget(),
+            AvatarWidget(
+              avatar: user['avatar'],
+              fullName: user['fullname'],
+            ),
             const SizedBox(
               height: 10,
             ),

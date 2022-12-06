@@ -7,7 +7,9 @@ import '../rest_client/rest_client.dart';
 abstract class IEventsRepositoty {
   Future<List<EventModel>> list();
   Future<EventModel> store(data);
+  Future<EventModel> update(data, int id);
   Future<EventModel> show(id);
+  Future delete(id);
 }
 
 class EventsRepository implements IEventsRepositoty {
@@ -33,6 +35,24 @@ class EventsRepository implements IEventsRepositoty {
     var response = await _restClient.get('/api/events/$id');
 
     return EventModel.fromMap(response.body);
+  }
+
+  @override
+  Future delete(id) async {
+    var response = await _restClient.delete('/api/events/$id');
+
+    return response.body;
+  }
+
+  @override
+  Future<EventModel> update(data, int id) async {
+    try {
+      var response = await _restClient.put('/api/events/$id', jsonEncode(data));
+
+      return EventModel.fromMap(response.body);
+    } catch (e) {
+      throw Exception('Erro ao editar evento');
+    }
   }
 
   @override

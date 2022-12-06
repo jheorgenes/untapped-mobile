@@ -19,6 +19,7 @@ class TicketWidget extends StatelessWidget {
   final VoidCallback removeItem;
   final Map<String, dynamic> ticket;
   final String defaultExpirationDate;
+  final bool? enabledInputs;
 
   final Function(Map<String, dynamic>) updateTicket;
 
@@ -28,6 +29,7 @@ class TicketWidget extends StatelessWidget {
     required this.updateTicket,
     required this.ticket,
     required this.defaultExpirationDate,
+    this.enabledInputs = true,
   }) {
     _ticket = ticket;
   }
@@ -35,8 +37,11 @@ class TicketWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _descriptionController.text = ticket['description'] ?? '';
-    _priceController.text = ticket['valueTicket'] ?? '';
-    _quantityController.text = ticket['numberOfTicketsPerRating'] ?? '';
+    _priceController.text =
+        ticket['valueTicket'] != null ? ticket['valueTicket'].toString() : '';
+    _quantityController.text = ticket['numberOfTicketsPerRating'] != null
+        ? ticket['numberOfTicketsPerRating'].toString()
+        : '';
     _ticketClassificationController.text = ticket['ticketClassification'] ?? '';
     _ticketExpirationDateController.text = defaultExpirationDate;
 
@@ -65,22 +70,24 @@ class TicketWidget extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                RountedButtomUi(
-                  primaryColor: Colors.red,
-                  callback: removeItem,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: FaIcon(
-                      FontAwesomeIcons.xmark,
-                      size: 11,
+                if (enabledInputs == true)
+                  RountedButtomUi(
+                    primaryColor: Colors.red,
+                    callback: removeItem,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: FaIcon(
+                        FontAwesomeIcons.xmark,
+                        size: 11,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
           InputFormUi(
             label: 'Descrição',
+            enabled: enabledInputs,
             type: 'text',
             controller: _descriptionController,
             baseColor: const Color(0XFF636882),
@@ -95,6 +102,7 @@ class TicketWidget extends StatelessWidget {
           ),
           InputFormUi(
             label: 'Classificação',
+            enabled: enabledInputs,
             type: 'text',
             controller: _ticketClassificationController,
             baseColor: const Color(0XFF636882),
@@ -109,6 +117,7 @@ class TicketWidget extends StatelessWidget {
           ),
           InputFormUi(
             label: 'Data de expiração',
+            enabled: enabledInputs,
             type: 'datetime',
             controller: _ticketExpirationDateController,
             baseColor: const Color(0XFF636882),
@@ -123,6 +132,7 @@ class TicketWidget extends StatelessWidget {
           ),
           InputFormUi(
             label: 'Quantidade de ingressos',
+            enabled: enabledInputs,
             type: 'number',
             controller: _quantityController,
             baseColor: const Color(0XFF636882),
@@ -138,6 +148,7 @@ class TicketWidget extends StatelessWidget {
           InputFormUi(
             label: 'Valor',
             type: 'text',
+            enabled: enabledInputs,
             controller: _priceController,
             baseColor: const Color(0XFF636882),
             validator: Validatorless.required('Valor obrigatório'),

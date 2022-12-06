@@ -77,14 +77,14 @@ class AddressModel extends AddressEntity {
       street: map['street'] ?? '',
       district: map['district'] ?? '',
       addressComplement: map['addressComplement'] ?? '',
-      addressNumber: map['addressNumber'],
-      cep: map['cep'],
-      title: map['title'],
-      state: map['state'],
+      addressNumber: map['addressNumber'] ?? '',
+      cep: map['cep'] ?? '',
+      title: map['title'] ?? '',
+      state: map['state'] ?? '',
       city: map['city'] ?? '',
       country: map['country'] ?? '',
-      latitude: map['latitude'],
-      longitude: map['longitude'],
+      latitude: map['latitude'] ?? '',
+      longitude: map['longitude'] ?? '',
     );
   }
 

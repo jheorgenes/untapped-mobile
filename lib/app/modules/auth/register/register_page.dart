@@ -111,6 +111,7 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   DropdownButtonWidget(
                     title: 'Tipo de usuário',
+                    selectedItems: const [],
                     validator: (value) {
                       if (value == null || (value.isEmpty)) {
                         return 'Informe o tipo de usuário';

@@ -4,7 +4,7 @@ import 'package:untapped/app/core/rest_client/rest_client.dart';
 
 abstract class IUserRepository {
   Future create(Map<String, dynamic> data);
-  Future update(Map<String, dynamic> data);
+  Future update(Map<String, dynamic> data, int id);
 }
 
 class UserRepository implements IUserRepository {
@@ -19,8 +19,8 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future update(Map<String, dynamic> data) async {
-    var response = await _restClient.put('/api/users', jsonEncode(data));
+  Future update(Map<String, dynamic> data, int id) async {
+    var response = await _restClient.put('/api/users/$id', jsonEncode(data));
 
     return response.body;
   }

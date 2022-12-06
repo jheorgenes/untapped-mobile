@@ -9,8 +9,8 @@ class ProfileController extends GetxController {
 
   ProfileController(this.authService, this.userRepository);
 
-  updateUser(Map<String, dynamic> data) {
-    var result = userRepository.update(data);
+  updateUser(Map<String, dynamic> data, int id) async {
+    var result = await userRepository.update(data, id);
 
     return result;
   }

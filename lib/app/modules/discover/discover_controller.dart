@@ -15,8 +15,8 @@ class DiscoverController extends GetxController {
     _isNow.value = value;
   }
 
-  loadCategories() {
-    var result = _categoryRepositoty.list();
+  loadCategories() async {
+    var result = await _categoryRepositoty.list();
     return result;
   }
 }

@@ -113,7 +113,7 @@ class TicketDetailWidget extends StatelessWidget {
                       children: [
                         if (eventModel != null)
                           Text(
-                            eventModel!.addressModel.title,
+                            eventModel?.addressModel?.title ?? '',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),

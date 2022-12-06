@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import './settings_controller.dart';
 
 class SettingsBindings implements Bindings {
-    @override
-    void dependencies() {
-        Get.put(SettingsController());
-    }
+  @override
+  void dependencies() {
+    Get.put(SettingsController(Get.find()));
+  }
 }

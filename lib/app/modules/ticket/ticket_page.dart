@@ -49,7 +49,7 @@ class TicketPage extends GetView<TicketController> {
           //   ),
           // );
           //TODO ajustes
-          Get.offAllNamed(
+          Get.offNamed(
             '/tickets',
             id: 1,
           );

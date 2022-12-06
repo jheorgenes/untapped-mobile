@@ -25,7 +25,9 @@ class EventModel extends EventEntity {
   @override
   String? frontCover;
   @override
-  AddressModel addressModel;
+  AddressModel? addressModel;
+  @override
+  List categories;
   @override
   List<TicketModel>? tickets;
   @override
@@ -40,8 +42,9 @@ class EventModel extends EventEntity {
     this.photos,
     this.frontCover,
     this.media,
-    required this.addressModel,
+    this.addressModel,
     this.capacity,
+    this.categories = const [],
     this.description,
     this.tickets,
   }) : super(
@@ -57,6 +60,7 @@ class EventModel extends EventEntity {
           frontCover: frontCover,
           media: media,
           tickets: tickets,
+          categories: categories,
         );
 
   Map<String, dynamic> toMap() {
@@ -70,8 +74,9 @@ class EventModel extends EventEntity {
       'description': description,
       'media': media,
       'frontCover': frontCover,
-      'addressEntity': addressModel.toMap(),
+      'addressEntity': addressModel?.toMap(),
       'capacity': capacity,
+      'categories': categories,
     };
   }
 
@@ -87,19 +92,23 @@ class EventModel extends EventEntity {
       }).toList();
     }
 
+    var address =
+        map['address'] != null ? AddressModel.fromMap(map['address']) : null;
+
     return EventModel(
       id: map['id']?.toInt(),
       title: map['title'] ?? '',
       subTitle: map['subTitle'] ?? '',
       dateEntry: map['dateEntry'] ?? '',
       deadline: map['deadline'] ?? '',
-      photos: map['photos'],
+      photos: map['photos'] ?? '',
       description: map['description'],
-      media: map['media'],
-      frontCover: map['frontCover'],
-      addressModel: AddressModel.fromMap(map['address']),
+      media: map['media'] ?? '',
+      frontCover: map['frontCover'] ?? '',
+      addressModel: address,
       capacity: map['capacity']?.toInt() ?? 0,
       tickets: tickets,
+      categories: map['categories'] ?? [],
     );
   }
 

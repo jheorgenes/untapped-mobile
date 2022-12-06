@@ -63,8 +63,10 @@ class HighlightsEvents extends StatelessWidget {
                               ),
                             ),
                             child: eventModel.frontCover != null
-                                ? Image.network(Constants.IMAGES_URL +
-                                    eventModel.frontCover!)
+                                ? Image.network(
+                                    Constants.IMAGES_URL +
+                                        eventModel.frontCover!,
+                                  )
                                 : Image.asset(
                                     'assets/images/no-image.jpeg',
                                     fit: BoxFit.fill,

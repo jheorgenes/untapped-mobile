@@ -19,6 +19,7 @@ class ProfilePage extends GetView<ProfileController> {
       TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
+  late int userId;
   ProfilePage({super.key});
 
   _submit() async {
@@ -29,7 +30,6 @@ class ProfilePage extends GetView<ProfileController> {
       'username': _userNameController.text,
       'email': _emailController.text,
       'fullName': _nameController.text,
-      'password': _passwordController.text,
       'cpf': _cpfController.text,
       'createdAt': createdAt,
       "birthDate": _birthDateController.text,
@@ -39,17 +39,22 @@ class ProfilePage extends GetView<ProfileController> {
       "enabled": true
     };
 
+    if (_passwordController.text != '') {
+      data['password'] = _passwordController.text;
+    }
+
     if (formValid) {
-      var result = await controller.updateUser(data);
+      var result = await controller.updateUser(data, userId);
 
       if (result?['id'] != null) {
+        await controller.authService.reloadUser();
         await Get.defaultDialog(
-          title: 'Usuário criado com sucesso!',
+          title: 'Perfil editado com sucesso!',
           middleText: '',
         );
 
         Timer(const Duration(milliseconds: 800), () {
-          Get.offNamed('/home');
+          Get.offAllNamed('/home');
         });
       } else {
         Get.defaultDialog(
@@ -68,13 +73,13 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     var user = controller.authService.user.value;
+
+    userId = user['id'];
     _userNameController.text = user['username'];
     _emailController.text = user['email'];
     _nameController.text = user['fullname'] ?? '';
     _cpfController.text = user['cpf'];
     _birthDateController.text = user['birthDate'];
-    _passwordController.text = '************';
-    _confirmPasswordController.text = '************';
 
     return Obx(() {
       return Scaffold(
@@ -198,11 +203,15 @@ class ProfilePage extends GetView<ProfileController> {
                     enabled: controller.editMode.value,
                     label: 'Senha',
                     textColor: Colors.white,
-                    validator: Validatorless.multiple([
-                      Validatorless.required('Senha é obrigatório'),
-                      Validatorless.min(
-                          8, 'A senha deve ter no mínimo 8 digitos')
-                    ]),
+                    validator: Validatorless.multiple(
+                      !controller.editMode.value
+                          ? [
+                              Validatorless.required('Senha é obrigatório'),
+                              Validatorless.min(
+                                  8, 'A senha deve ter no mínimo 8 digitos')
+                            ]
+                          : [],
+                    ),
                     colorIconHide: Colors.white,
                     controller: _passwordController,
                   ),
@@ -219,11 +228,16 @@ class ProfilePage extends GetView<ProfileController> {
                       textColor: Colors.white,
                       controller: _confirmPasswordController,
                       colorIconHide: Colors.white,
-                      validator: Validatorless.multiple([
-                        Validatorless.compare(
-                            _passwordController, 'Senha devem ser iguais'),
-                        Validatorless.required('Deve confirmar a senha'),
-                      ]),
+                      validator: Validatorless.multiple(
+                        !controller.editMode.value
+                            ? [
+                                Validatorless.compare(_passwordController,
+                                    'Senha devem ser iguais'),
+                                Validatorless.required(
+                                    'Deve confirmar a senha'),
+                              ]
+                            : [],
+                      ),
                     ),
                   if (controller.editMode.value)
                     const SizedBox(
