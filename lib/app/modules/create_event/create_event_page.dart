@@ -90,7 +90,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
       if (_mode == 'create') {
         controller.submitedForm();
       } else if (_mode == 'update') {
-        controller.data['tickets'] = [];
+        controller.data['cateories'] = _defaultCategories;
         controller.updateForm(_eventId);
       }
     }
@@ -112,6 +112,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
     _cityController.text = eventModel.addressEntity?.city ?? '';
     _stateController.text = eventModel.addressEntity?.state ?? '';
     _contryController.text = eventModel.addressEntity?.country ?? '';
+    _numberController.text = eventModel.addressEntity?.addressNumber ?? '';
 
     _defaultMedia = eventModel.frontCover ?? '';
     _eventId = eventModel.id ?? 0;
@@ -122,7 +123,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
   @override
   Widget build(BuildContext context) {
     controller.loaderListener(controller.loading);
-    controller.modalConfirm(controller.modal, 'Evento criado com sucesso!');
+
     var args = ModalRoute.of(context)?.settings.arguments;
     if (args != null) {
       var eventModel = args as EventModel;
@@ -130,7 +131,11 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
 
       _setDefaultValues(eventModel);
     }
-
+    controller.modalConfirm(
+        controller.modal,
+        _mode == 'create'
+            ? 'Evento criado com sucesso!'
+            : 'Evento atualizado com sucesso!');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarNavigator(

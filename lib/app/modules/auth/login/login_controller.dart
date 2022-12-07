@@ -23,7 +23,7 @@ class LoginController extends GetxController {
     restClient.headersDefault['Authorization'] = '';
     var response = await _authRepository.login(data);
 
-    var accessToken = response['accessToken'];
+    var accessToken = response?['accessToken'];
 
     restClient.headersDefault['Authorization'] = 'Bearer $accessToken';
 

@@ -48,7 +48,7 @@ class CreateEventController extends GetxController with LoaderMixin {
       modal(true);
       Timer(const Duration(seconds: 1), () {
         modal(false);
-        Get.offNamed('/home');
+        Get.offAllNamed('/home');
       });
     });
   }
