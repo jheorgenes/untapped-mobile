@@ -48,8 +48,8 @@ class HomePage extends GetView<HomeController> {
           onTap: (int index) {
             controller.activeIndex = index;
           },
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
               tooltip: '',
               label: 'Events',
               backgroundColor: Color(0XFF181A20),
@@ -57,17 +57,17 @@ class HomePage extends GetView<HomeController> {
                 FontAwesomeIcons.house,
               ),
             ),
-            if (controller.authService.user['roles'] != null &&
-                controller.isShow(controller.authService.user['roles']))
-              const BottomNavigationBarItem(
-                label: 'Dasboard',
-                tooltip: '',
-                backgroundColor: Color(0XFF181A20),
-                icon: Icon(
-                  FontAwesomeIcons.gauge,
-                ),
-              ),
-            const BottomNavigationBarItem(
+            // if (controller.authService.user['roles'] != null &&
+            //     controller.isShow(controller.authService.user['roles']))
+            //   const BottomNavigationBarItem(
+            //     label: 'Dasboard',
+            //     tooltip: '',
+            //     backgroundColor: Color(0XFF181A20),
+            //     icon: Icon(
+            //       FontAwesomeIcons.gauge,
+            //     ),
+            //   ),
+            BottomNavigationBarItem(
               label: 'Discover',
               tooltip: '',
               backgroundColor: Color(0XFF181A20),
@@ -75,7 +75,7 @@ class HomePage extends GetView<HomeController> {
                 FontAwesomeIcons.compass,
               ),
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               label: 'Tickets',
               tooltip: '',
               backgroundColor: Color(0XFF181A20),
@@ -83,7 +83,7 @@ class HomePage extends GetView<HomeController> {
                 FontAwesomeIcons.bookmark,
               ),
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               label: 'Profile',
               tooltip: '',
               backgroundColor: Color(0XFF181A20),

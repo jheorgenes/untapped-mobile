@@ -27,15 +27,15 @@ class HighlightsCategoryWidget extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    const Text(
-                      'Todos',
-                      style: TextStyle(
-                        color: Color(0XFF696D74),
-                        fontFamily: 'Poppins',
-                        fontSize: 17,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
+                    // const Text(
+                    //   'Todos',
+                    //   style: TextStyle(
+                    //     color: Color(0XFF696D74),
+                    //     fontFamily: 'Poppins',
+                    //     fontSize: 17,
+                    //     fontWeight: FontWeight.w300,
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(

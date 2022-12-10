@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untapped/app/core/services/auth_service.dart';
-import 'package:untapped/app/modules/dashboard/dashboard_bindings.dart';
-import 'package:untapped/app/modules/dashboard/dashboard_page.dart';
 import 'package:untapped/app/modules/discover/discover_bindings.dart';
 import 'package:untapped/app/modules/discover/discover_page.dart';
 import 'package:untapped/app/modules/events/events_bindings.dart';
@@ -20,7 +18,7 @@ class HomeController extends GetxController {
 
   final _routes = [
     '/events',
-    '/dashboard',
+    // '/dashboard',
     '/discover',
     '/tickets',
     '/profile',
@@ -38,9 +36,9 @@ class HomeController extends GetxController {
       case '/events':
         title('Untapped');
         break;
-      case '/dashboard':
-        title('Dashboard');
-        break;
+      // case '/dashboard':
+      //   title('Dashboard');
+      //   break;
       case '/discover':
         title('Explorar Eventos');
         break;
@@ -77,14 +75,14 @@ class HomeController extends GetxController {
       );
     }
 
-    if (settings.name == '/dashboard') {
-      return GetPageRoute(
-        settings: settings,
-        page: () => const DashboardPage(),
-        binding: DashboardBindings(),
-        transition: Transition.fadeIn,
-      );
-    }
+    // if (settings.name == '/dashboard') {
+    //   return GetPageRoute(
+    //     settings: settings,
+    //     page: () => const DashboardPage(),
+    //     binding: DashboardBindings(),
+    //     transition: Transition.fadeIn,
+    //   );
+    // }
 
     if (settings.name == '/tickets') {
       return GetPageRoute(

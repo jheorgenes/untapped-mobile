@@ -55,7 +55,9 @@ class SettingsPage extends GetView<SettingsController> {
             OptionItemWidget(
               title: ' Leitor de códigos',
               color: const Color(0XFF00CB97),
-              callback: () {},
+              callback: () {
+                Get.toNamed('/qr_reader');
+              },
               icon: const FaIcon(FontAwesomeIcons.squarePlus),
             ),
             const Divider(
@@ -112,7 +114,7 @@ class SettingsPage extends GetView<SettingsController> {
               color: Colors.white,
             ),
             const Text(
-              'Privacy & Policy',
+              'Mais opções',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -122,15 +124,17 @@ class SettingsPage extends GetView<SettingsController> {
             const SizedBox(
               height: 20,
             ),
-            OptionItemWidget(
-              title: ' Notificações',
-              callback: () {},
-              color: const Color(0XFF546EE5),
-              icon: const FaIcon(FontAwesomeIcons.bell),
-            ),
+            // OptionItemWidget(
+            //   title: ' Notificações',
+            //   callback: () {},
+            //   color: const Color(0XFF546EE5),
+            //   icon: const FaIcon(FontAwesomeIcons.bell),
+            // ),
             OptionItemWidget(
               title: ' Meus tickets',
-              callback: () {},
+              callback: () {
+                Get.toNamed('/tickets', id: 1);
+              },
               color: const Color(0XFF54C2E5),
               icon: const FaIcon(FontAwesomeIcons.ticket),
             ),

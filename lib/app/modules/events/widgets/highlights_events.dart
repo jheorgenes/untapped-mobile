@@ -16,13 +16,14 @@ class HighlightsEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+
       padding: const EdgeInsets.symmetric(horizontal: 30),
-      height: 288,
+      // height: 288,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Em breve',
+            'Eventos',
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'Poppins',
@@ -34,9 +35,11 @@ class HighlightsEvents extends StatelessWidget {
             height: 12,
           ),
           SizedBox(
+            width: context.width,
+            height: context.height,
             child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+              scrollDirection: Axis.vertical,
+              child: Column(
                 children: [
                   ..._events.map((event) {
                     final eventModel = event as EventModel;
@@ -53,7 +56,7 @@ class HighlightsEvents extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: context.widthTransformer(reducedBy: 30),
+                            width: context.width,
                             height: 180,
                             clipBehavior: Clip.hardEdge,
                             margin: const EdgeInsets.only(right: 10),
@@ -72,6 +75,9 @@ class HighlightsEvents extends StatelessWidget {
                                     fit: BoxFit.fill,
                                   ),
                           ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                           Text(
                             eventModel.title,
                             style: const TextStyle(
@@ -89,6 +95,9 @@ class HighlightsEvents extends StatelessWidget {
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
+                          ),
+                          const SizedBox(
+                            height: 25,
                           ),
                         ],
                       ),

@@ -92,7 +92,7 @@ class _AddTicketWidgetState extends State<AddTicketWidget> {
           ..._tickets.asMap().entries.map(
             (entry) {
               return TicketWidget(
-                key: UniqueKey(),
+                // key: UniqueKey(),
                 defaultExpirationDate: widget.deadLineController.text,
                 ticket: _tickets[entry.key],
                 updateTicket: (p0) {

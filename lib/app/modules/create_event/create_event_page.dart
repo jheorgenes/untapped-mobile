@@ -16,7 +16,7 @@ import './create_event_controller.dart';
 
 class CreateEventPage extends GetView<CreateEventController> with Validators {
   CreateEventPage({super.key});
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _dateEntryController = TextEditingController();
   final TextEditingController _deadLineController = TextEditingController();
@@ -90,7 +90,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
       if (_mode == 'create') {
         controller.submitedForm();
       } else if (_mode == 'update') {
-        controller.data['cateories'] = _defaultCategories;
+        controller.data['categories'] = _defaultCategories;
         controller.updateForm(_eventId);
       }
     }

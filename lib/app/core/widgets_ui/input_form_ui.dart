@@ -50,6 +50,7 @@ class _InputFormUiState extends State<InputFormUi> {
         }
       });
     }
+
     if (widget.value != null && widget.controller != null) {
       widget.controller!.text = widget.value!;
     }
@@ -64,6 +65,10 @@ class _InputFormUiState extends State<InputFormUi> {
   }
 
   _onTap() async {
+    if (widget.type == 'datetime' || widget.type == 'date') {
+      focusNode.unfocus();
+    }
+
     if (widget.type == 'datetime') {
       DateTime? pickedDate = await DatePicker.showDateTimePicker(
         context,

@@ -24,65 +24,70 @@ class LoginPage extends GetView<LoginController> {
       body: SizedBox(
         width: context.width,
         height: context.height,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Login Account',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: context.heightTransformer(reducedBy: 85),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                controller.welcomeMessage,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Color(0XFF9E9E9E),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              InputFormUi(
-                textColor: Colors.black,
-                label: 'Email',
-                controller: _userName,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              InputFormUi(
-                textColor: Colors.black,
-                type: 'password',
-                label: 'Senha',
-                controller: _password,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              ElevatedButtonUi(
-                callback: () {
-                  controller.authenticate({
-                    'username': _userName.text,
-                    'password': _password.text,
-                  });
-                },
-                child: SizedBox(
-                  width: context.width,
-                  height: 57,
-                  child: const Center(
-                    child: Text('Login'),
+                const Text(
+                  'Login Account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  controller.welcomeMessage,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0XFF9E9E9E),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                InputFormUi(
+                  textColor: Colors.black,
+                  label: 'Email',
+                  controller: _userName,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                InputFormUi(
+                  textColor: Colors.black,
+                  type: 'password',
+                  label: 'Senha',
+                  controller: _password,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButtonUi(
+                  callback: () {
+                    controller.authenticate({
+                      'username': _userName.text,
+                      'password': _password.text,
+                    });
+                  },
+                  child: SizedBox(
+                    width: context.width,
+                    height: 57,
+                    child: const Center(
+                      child: Text('Login'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
