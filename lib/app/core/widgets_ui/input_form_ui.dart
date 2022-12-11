@@ -64,9 +64,13 @@ class _InputFormUiState extends State<InputFormUi> {
     super.dispose();
   }
 
+  _onSubmit(String? va) {}
+
   _onTap() async {
     if (widget.type == 'datetime' || widget.type == 'date') {
       focusNode.unfocus();
+    } else {
+      focusNode.requestFocus();
     }
 
     if (widget.type == 'datetime') {
@@ -173,6 +177,7 @@ class _InputFormUiState extends State<InputFormUi> {
             ),
           ),
           onTap: _onTap,
+          onFieldSubmitted: _onSubmit,
           onChanged: widget.onChanged,
         ),
         if (widget.type == 'password' && widget.enabled == true)

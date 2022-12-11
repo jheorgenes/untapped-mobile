@@ -5,11 +5,15 @@ import 'package:untapped/app/modules/events/widgets/highlights_events.dart';
 import './events_controller.dart';
 
 class EventsPage extends GetView<EventsController> {
-  const EventsPage({Key? key}) : super(key: key);
+  EventsPage({super.key});
+  var hasLoaded = false;
 
   @override
   Widget build(BuildContext context) {
-    controller.loadEvents();
+    if (!hasLoaded) {
+      hasLoaded = true;
+      controller.loadEvents();
+    }
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -22,15 +26,34 @@ class EventsPage extends GetView<EventsController> {
           ),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: TextFormFieldUi(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: TextFormFieldUi(
+                  focusNode: controller.focusNode,
+                  title: 'Pesquisar evento por nome',
+                  onChanged: (value) {
+                    if (value != null && value.length > 3) {
+                      controller.findEventsByName(value);
+                    } else {
+                      controller.loadEvents();
+                    }
+                  },
+                ),
               ),
               const SizedBox(
                 height: 30,
               ),
               Obx(() {
-                return HighlightsEvents(events: controller.events);
+                return controller.loading.value
+                    ? SizedBox(
+                        height: context.heightTransformer(reducedBy: 50),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : HighlightsEvents(
+                        events: controller.events,
+                      );
               }),
               const SizedBox(
                 height: 30,

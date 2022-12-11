@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 
 import '../../core/repository/order_repository.dart';
@@ -6,8 +8,15 @@ class QrReaderController extends GetxController {
   final IOrderRepository _orderRepository;
 
   QrReaderController(this._orderRepository);
-  Future<bool> validateQrCode(String qrCode) async {
+  Future validateQrCode(String qrCode) async {
+    final completer = Completer<void>();
+
     var result = await _orderRepository.validateQrCode(qrCode);
-    return result['id'] != null;
+
+    Timer(const Duration(milliseconds: 1000), () {
+      completer.complete(result['id'] != null);
+    });
+
+    return completer.future;
   }
 }

@@ -20,6 +20,7 @@ class EventDetailPage extends GetView<EventDetailController> {
   @override
   Widget build(BuildContext context) {
     final params = ModalRoute.of(context)!.settings.arguments as EventModel;
+    final showOptEdit = controller.authService.user['id'] == params.userId;
 
     return Scaffold(
       body: Column(
@@ -92,48 +93,52 @@ class EventDetailPage extends GetView<EventDetailController> {
                   ),
                 ),
                 AppBarNavigator(
-                    title: 'Informações',
-                    showIcon: false,
-                    color: Colors.transparent,
-                    customRightWidget: Row(
-                      children: [
-                        ElevatedButtonUi(
-                          callback: () {
-                            Get.offNamed('/events/create', arguments: params);
-                          },
-                          backgroundColor: Colors.transparent,
-                          child: const FaIcon(FontAwesomeIcons.penToSquare),
-                        ),
-                        ElevatedButtonUi(
-                          callback: () async {
-                            await Get.defaultDialog(
-                              title: 'Deceja excluír o evento?',
-                              middleText: '',
-                              textConfirm: 'Sim',
-                              confirmTextColor: Colors.white,
-                              textCancel: 'Não',
-                              onCancel: () {},
-                              onConfirm: () async {
-                                var result =
-                                    await controller.deleteEvent(params.id!);
-                                Get.back();
-                                Get.defaultDialog(
-                                  title: 'Evento excluído com sucesso',
-                                  middleText: '',
-                                );
-                                Timer(const Duration(seconds: 2), () {
-                                  Get.offAllNamed('/home');
-                                });
+                  title: 'Informações',
+                  showIcon: false,
+                  color: Colors.transparent,
+                  customRightWidget: showOptEdit
+                      ? Row(
+                          children: [
+                            ElevatedButtonUi(
+                              callback: () {
+                                Get.offNamed('/events/create',
+                                    arguments: params);
                               },
-                            );
-                          },
-                          backgroundColor: Colors.transparent,
-                          child: const FaIcon(
-                            FontAwesomeIcons.trash,
-                          ),
-                        ),
-                      ],
-                    )),
+                              backgroundColor: Colors.transparent,
+                              child: const FaIcon(FontAwesomeIcons.penToSquare),
+                            ),
+                            ElevatedButtonUi(
+                              callback: () async {
+                                await Get.defaultDialog(
+                                  title: 'Deceja excluír o evento?',
+                                  middleText: '',
+                                  textConfirm: 'Sim',
+                                  confirmTextColor: Colors.white,
+                                  textCancel: 'Não',
+                                  onCancel: () {},
+                                  onConfirm: () async {
+                                    var result = await controller
+                                        .deleteEvent(params.id!);
+                                    Get.back();
+                                    Get.defaultDialog(
+                                      title: 'Evento excluído com sucesso',
+                                      middleText: '',
+                                    );
+                                    Timer(const Duration(seconds: 2), () {
+                                      Get.offAllNamed('/home');
+                                    });
+                                  },
+                                );
+                              },
+                              backgroundColor: Colors.transparent,
+                              child: const FaIcon(
+                                FontAwesomeIcons.trash,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+                ),
               ],
             ),
           ),

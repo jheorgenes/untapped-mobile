@@ -9,6 +9,8 @@ class EventModel extends EventEntity {
   @override
   int? id;
   @override
+  int userId;
+  @override
   String title;
   @override
   String? subTitle;
@@ -47,6 +49,7 @@ class EventModel extends EventEntity {
     this.categories = const [],
     this.description,
     this.tickets,
+    required this.userId,
   }) : super(
           id: id,
           title: title,
@@ -61,6 +64,7 @@ class EventModel extends EventEntity {
           media: media,
           tickets: tickets,
           categories: categories,
+          userId: userId,
         );
 
   Map<String, dynamic> toMap() {
@@ -77,6 +81,7 @@ class EventModel extends EventEntity {
       'addressEntity': addressModel?.toMap(),
       'capacity': capacity,
       'categories': categories,
+      'userId': userId,
     };
   }
 
@@ -97,6 +102,7 @@ class EventModel extends EventEntity {
 
     return EventModel(
       id: map['id']?.toInt(),
+      userId: map['userId'].toInt(),
       title: map['title'] ?? '',
       subTitle: map['subTitle'] ?? '',
       dateEntry: map['dateEntry'] ?? '',

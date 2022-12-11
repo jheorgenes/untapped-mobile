@@ -9,6 +9,8 @@ abstract class IEventsRepositoty {
   Future<EventModel> store(data);
   Future<EventModel> update(data, int id);
   Future<EventModel> show(id);
+  Future<List<EventModel>> myEvents(int userId);
+  Future<List<EventModel>> search(String title);
   Future delete(id);
 }
 
@@ -35,6 +37,30 @@ class EventsRepository implements IEventsRepositoty {
     var response = await _restClient.get('/api/events/$id');
 
     return EventModel.fromMap(response.body);
+  }
+
+  @override
+  Future<List<EventModel>> myEvents(int userId) async {
+    var response = await _restClient.get('/api/events/user/$userId');
+
+    List<EventModel> result = [];
+    response.body.forEach((item) {
+      result.add(EventModel.fromMap(item));
+    });
+
+    return result;
+  }
+
+  @override
+  Future<List<EventModel>> search(String title) async {
+    var response = await _restClient.get('/api/events/search/$title');
+
+    List<EventModel> result = [];
+    response.body.forEach((item) {
+      result.add(EventModel.fromMap(item));
+    });
+
+    return result;
   }
 
   @override

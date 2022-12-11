@@ -48,18 +48,14 @@ class TicketPage extends GetView<TicketController> {
           //     titleButtom: 'Home',
           //   ),
           // );
-          //TODO ajustes
-          Get.offNamed(
-            '/tickets',
-            id: 1,
-          );
+          Get.offNamed('/home');
         },
         child: SizedBox(
           height: 35,
           width: context.widthTransformer(reducedBy: 20),
           child: const Center(
             child: Text(
-              'Ver tickets',
+              'Início',
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,

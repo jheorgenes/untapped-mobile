@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 
 class QrCodeViewWidget extends StatefulWidget {
   final Function(String? qrCode) onResultQrCode;
@@ -33,6 +34,7 @@ class _QrCodeViewWidgetState extends State<QrCodeViewWidget> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
+      controller.pauseCamera();
       widget.onResultQrCode(scanData.code);
     });
   }
@@ -66,7 +68,7 @@ class _QrCodeViewWidgetState extends State<QrCodeViewWidget> {
             height: 20,
           ),
           Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             clipBehavior: Clip.hardEdge,
             width: 300,
             height: 300,
@@ -80,6 +82,18 @@ class _QrCodeViewWidgetState extends State<QrCodeViewWidget> {
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButtonUi(
+            callback: () {
+              controller!.resumeCamera();
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text('Iniciar novo escaneamento'),
+            ),
+          )
         ],
       ),
     );

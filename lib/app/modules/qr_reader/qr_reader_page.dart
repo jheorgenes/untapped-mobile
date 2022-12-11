@@ -19,21 +19,30 @@ class QrReaderPage extends GetView<QrReaderController> {
       body: Column(
         children: [
           QrCodeViewWidget(onResultQrCode: (qrCode) async {
-            var result = await Get.showOverlay(
-              asyncFunction: () {
-                return controller.validateQrCode(qrCode ?? '');
-              },
-              loadingWidget: const CircularProgressIndicator(),
-            );
-
-            if (result) {
+            if (qrCode != null) {
               Get.defaultDialog(
-                content: const Text('Ticket validado com sucesso!'),
+                content: Column(
+                  children: const [
+                    Text('Validando ticket!'),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CircularProgressIndicator(),
+                  ],
+                ),
               );
-            } else {
-              Get.defaultDialog(
-                content: const Text('Ticket inválido!'),
-              );
+              controller.validateQrCode(qrCode).then((value) {
+                Get.back();
+                if (value) {
+                  Get.defaultDialog(
+                    content: const Text('Ticket validado com sucesso!'),
+                  );
+                } else {
+                  Get.defaultDialog(
+                    content: const Text('Ticket inválido!'),
+                  );
+                }
+              });
             }
           }),
         ],

@@ -60,7 +60,7 @@ class HomeController extends GetxController {
     if (settings.name == '/events') {
       return GetPageRoute(
         settings: settings,
-        page: () => const EventsPage(),
+        page: () => EventsPage(),
         binding: EventsBindings(),
         transition: Transition.fadeIn,
       );

@@ -10,6 +10,11 @@ class EventDetailBindings implements Bindings {
         restClient: Get.find(),
       ),
     );
-    Get.put(EventDetailController(Get.find()));
+    Get.put(
+      EventDetailController(
+        Get.find(),
+        Get.find(),
+      ),
+    );
   }
 }

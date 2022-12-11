@@ -175,7 +175,7 @@ class TicketDetailWidget extends StatelessWidget {
                 child: QrImage(
                   data: '$qrCode',
                   version: QrVersions.auto,
-                  size: 120,
+                  size: 150,
                   gapless: false,
                 ),
               )

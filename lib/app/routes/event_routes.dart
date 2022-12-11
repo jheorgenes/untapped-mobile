@@ -20,7 +20,7 @@ class EventRoutes {
     GetPage(
       name: '/events/create',
       binding: CreateEventBindings(),
-      page: () => CreateEventPage(),
+      page: () => const CreateEventPage(),
     ),
     GetPage(
       name: '/category/create',

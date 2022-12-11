@@ -3,6 +3,7 @@ import 'package:untapped/app/core/models/ticket_model.dart';
 
 class EventEntity {
   int? id;
+  int userId;
   String title;
   String? subTitle;
   String dateEntry;
@@ -20,6 +21,7 @@ class EventEntity {
     this.id,
     required this.title,
     this.subTitle,
+    required this.userId,
     required this.dateEntry,
     required this.deadline,
     this.description,

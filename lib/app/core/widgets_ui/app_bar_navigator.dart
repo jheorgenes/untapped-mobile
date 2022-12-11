@@ -24,7 +24,9 @@ class AppBarNavigator extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 95,
+      margin: const EdgeInsets.only(top: 10),
       padding: const EdgeInsets.symmetric(
+        vertical: 12,
         horizontal: 12,
       ),
       decoration: BoxDecoration(

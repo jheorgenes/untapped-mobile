@@ -20,7 +20,7 @@ class AppRoutes {
     GetPage(
       name: '/qr_reader',
       binding: QrReaderBindings(),
-      page: () => const QrReaderPage(),
+      page: () => QrReaderPage(),
     ),
     ...AuthRoutes.routes,
     ...HomeRoutes

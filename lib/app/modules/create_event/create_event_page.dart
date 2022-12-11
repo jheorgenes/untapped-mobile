@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:untapped/app/core/models/event_model.dart';
 import 'package:untapped/app/core/models/ticket_model.dart';
+import 'package:untapped/app/core/services/app_state.dart';
 import 'package:untapped/app/core/services/validators.dart';
 import 'package:untapped/app/core/widgets_ui/app_bar_navigator.dart';
 import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
@@ -14,8 +15,15 @@ import 'package:validatorless/validatorless.dart';
 import '../auth/register/widgets/dropdown_button_widget.dart';
 import './create_event_controller.dart';
 
-class CreateEventPage extends GetView<CreateEventController> with Validators {
-  CreateEventPage({super.key});
+class CreateEventPage extends StatefulWidget {
+  const CreateEventPage({super.key});
+
+  @override
+  State<CreateEventPage> createState() => _CreateEventPageState();
+}
+
+class _CreateEventPageState
+    extends AppState<CreateEventPage, CreateEventController> with Validators {
   static final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _dateEntryController = TextEditingController();
@@ -35,6 +43,7 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _contryController = TextEditingController();
   final _categoriesSelected = [];
+  var hasDefaultValues = false;
   var _defaultCategories = [];
   String _defaultMedia = '';
   List<TicketModel>? _defaultTickets;
@@ -121,21 +130,29 @@ class CreateEventPage extends GetView<CreateEventController> with Validators {
   }
 
   @override
-  Widget build(BuildContext context) {
-    controller.loaderListener(controller.loading);
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments;
-    if (args != null) {
+
+    if (args != null && !hasDefaultValues) {
+      hasDefaultValues = true;
       var eventModel = args as EventModel;
       _mode = 'update';
-
-      _setDefaultValues(eventModel);
-    }
-    controller.modalConfirm(
+      controller.loaderListener(controller.loading);
+      controller.modalConfirm(
         controller.modal,
         _mode == 'create'
             ? 'Evento criado com sucesso!'
-            : 'Evento atualizado com sucesso!');
+            : 'Evento atualizado com sucesso!',
+      );
+
+      _setDefaultValues(eventModel);
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarNavigator(
