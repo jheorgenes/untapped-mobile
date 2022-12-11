@@ -77,7 +77,7 @@ class EventsRepository implements IEventsRepositoty {
 
       return EventModel.fromMap(response.body);
     } catch (e) {
-      throw Exception('Erro ao editar evento');
+      throw Exception(e);
     }
   }
 

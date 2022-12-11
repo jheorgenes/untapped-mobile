@@ -72,6 +72,7 @@ class _CreateEventPageState
         'subTitle': _subTitleController.text,
         'dateEntry': _dateEntryController.text,
         'deadline': _deadLineController.text,
+        'userId': controller.authService.user['id'],
         'photos': null,
         'media': null,
         'frontCover': controller.fileNameUpload == ''
@@ -142,16 +143,16 @@ class _CreateEventPageState
       hasDefaultValues = true;
       var eventModel = args as EventModel;
       _mode = 'update';
-      controller.loaderListener(controller.loading);
-      controller.modalConfirm(
-        controller.modal,
-        _mode == 'create'
-            ? 'Evento criado com sucesso!'
-            : 'Evento atualizado com sucesso!',
-      );
 
       _setDefaultValues(eventModel);
     }
+    controller.loaderListener(controller.loading);
+    controller.modalConfirm(
+      controller.modal,
+      _mode == 'create'
+          ? 'Evento criado com sucesso!'
+          : 'Evento atualizado com sucesso!',
+    );
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
