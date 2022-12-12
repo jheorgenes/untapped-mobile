@@ -47,9 +47,11 @@ class AddressController extends GetxController {
 
   submit({required bool modeCreate, int? addressId}) async {
     if (modeCreate) {
-      return await _addressRepository.create(data);
+      var result = await _addressRepository.create(data);
+      return result;
     } else {
-      return await _addressRepository.update(data, addressId!);
+      var result = await _addressRepository.update(data, addressId!);
+      return result;
     }
   }
 }

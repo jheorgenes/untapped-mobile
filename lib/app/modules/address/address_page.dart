@@ -12,6 +12,7 @@ import './address_controller.dart';
 class AddressPage extends GetView<AddressController> with Validators {
   AddressPage({super.key});
   final _formKey = GlobalKey<FormState>();
+  bool hasInit = false;
 
   //Address
   final TextEditingController _cepController = TextEditingController();
@@ -21,7 +22,7 @@ class AddressPage extends GetView<AddressController> with Validators {
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _contryController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
 
   _getCep(cep) async {
     if (cepValid(cep)) {
@@ -40,6 +41,7 @@ class AddressPage extends GetView<AddressController> with Validators {
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       controller.data = {
+        'id': address['id'],
         'userId': userId,
         'street': _streetController.text,
         'district': _districtController.text,
@@ -48,7 +50,7 @@ class AddressPage extends GetView<AddressController> with Validators {
         'cep': _cepController.text,
         'city': _cityController.text,
         'state': _stateController.text,
-        'contry': _contryController.text,
+        'country': _countryController.text,
         'latitude': null,
         'longitude': null,
       };
@@ -66,8 +68,9 @@ class AddressPage extends GetView<AddressController> with Validators {
           middleText: '',
         );
 
-        Timer(const Duration(milliseconds: 800), () {
-          Get.offNamed('/home');
+        Timer(const Duration(milliseconds: 800), () async {
+          controller.authService.reloadUser();
+          await Get.offAllNamed('/home');
         });
       } else {
         Get.defaultDialog(
@@ -88,13 +91,14 @@ class AddressPage extends GetView<AddressController> with Validators {
     var address = controller.authService.user['adresses']?[0];
     var userId = controller.authService.user['id'];
 
-    if (address != null) {
+    if (address != null && !hasInit) {
+      hasInit = true;
       _cepController.text = address['cep'] ?? '';
       _streetController.text = address['street'] ?? '';
       _districtController.text = address['district'] ?? '';
       _cityController.text = address['city'] ?? '';
       _stateController.text = address['state'] ?? '';
-      _contryController.text = address['contry'] ?? '';
+      _countryController.text = address['country'] ?? '';
       _complementController.text = address['addressComplement'] ?? '';
       _numberController.text = address['addressNumber'] ?? '';
     }
@@ -123,6 +127,9 @@ class AddressPage extends GetView<AddressController> with Validators {
         child: Form(
           key: _formKey,
           child: Container(
+            margin: const EdgeInsets.only(
+              bottom: 100,
+            ),
             width: context.width,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -231,7 +238,7 @@ class AddressPage extends GetView<AddressController> with Validators {
                 ),
                 InputFormUi(
                   label: 'País',
-                  controller: _contryController,
+                  controller: _countryController,
                   baseColor: const Color(0XFF636882),
                   validator: Validatorless.required('País é obrigatório'),
                 ),

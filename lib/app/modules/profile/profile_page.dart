@@ -4,12 +4,20 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:validatorless/validatorless.dart';
+import '../../core/services/app_state.dart';
 import '../../core/widgets_ui/app_bar_navigator.dart';
 import '../../core/widgets_ui/elevated_button_ui.dart';
 import '../../core/widgets_ui/input_form_ui.dart';
 import './profile_controller.dart';
 
-class ProfilePage extends GetView<ProfileController> {
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends AppState<ProfilePage, ProfileController> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -20,7 +28,6 @@ class ProfilePage extends GetView<ProfileController> {
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
   late int userId;
-  ProfilePage({super.key});
 
   _submit() async {
     final formValid = _formKey.currentState?.validate() ?? false;
@@ -71,7 +78,7 @@ class ProfilePage extends GetView<ProfileController> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     var user = controller.authService.user.value;
 
     userId = user['id'];
@@ -80,7 +87,11 @@ class ProfilePage extends GetView<ProfileController> {
     _nameController.text = user['fullname'] ?? '';
     _cpfController.text = user['cpf'];
     _birthDateController.text = user['birthDate'];
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,

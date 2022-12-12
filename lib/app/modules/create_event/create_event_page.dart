@@ -41,7 +41,7 @@ class _CreateEventPageState
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _contryController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
   final _categoriesSelected = [];
   var hasDefaultValues = false;
   var _defaultCategories = [];
@@ -90,7 +90,7 @@ class _CreateEventPageState
           'cep': _cepController.text,
           'city': _cityController.text,
           'state': _stateController.text,
-          'contry': _contryController.text,
+          'country': _countryController.text,
           'latitude': null,
           'longitude': null,
         },
@@ -121,7 +121,7 @@ class _CreateEventPageState
     _cepController.text = eventModel.addressEntity?.cep ?? '';
     _cityController.text = eventModel.addressEntity?.city ?? '';
     _stateController.text = eventModel.addressEntity?.state ?? '';
-    _contryController.text = eventModel.addressEntity?.country ?? '';
+    _countryController.text = eventModel.addressEntity?.country ?? '';
     _numberController.text = eventModel.addressEntity?.addressNumber ?? '';
 
     _defaultMedia = eventModel.frontCover ?? '';
@@ -400,7 +400,7 @@ class _CreateEventPageState
                         ),
                         InputFormUi(
                           label: 'País',
-                          controller: _contryController,
+                          controller: _countryController,
                           baseColor: const Color(0XFF636882),
                           validator:
                               Validatorless.required('País é obrigatório'),

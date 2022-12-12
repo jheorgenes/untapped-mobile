@@ -16,26 +16,22 @@ class EventsController extends GetxController {
     required IEventsRepositoty eventsRepository,
   }) : _eventsRepository = eventsRepository;
 
-  loadEvents() {
-    debounceCustom(() async {
-      log('chamou');
-      loading.value = true;
-      var response = await _eventsRepository.list();
-      loading.value = false;
-      _events.value = response;
-      focusNode.unfocus();
-    });
+  loadEvents() async {
+    log('chamou');
+    loading.value = true;
+    var response = await _eventsRepository.list();
+    loading.value = false;
+    _events.value = response;
+    focusNode.unfocus();
   }
 
-  findEventsByName(String value) {
-    debounceCustom(() async {
-      loading.value = true;
-      log('chamou');
-      var response = await _eventsRepository.search(value);
-      loading.value = false;
-      focusNode.unfocus();
-      _events.value = response;
-    });
+  findEventsByName(String value) async {
+    loading.value = true;
+    log('chamou');
+    var response = await _eventsRepository.search(value);
+    loading.value = false;
+    focusNode.unfocus();
+    _events.value = response;
   }
 
   debounceCustom(Function callback) {

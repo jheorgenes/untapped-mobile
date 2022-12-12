@@ -33,6 +33,7 @@ class EventItemWidget extends StatelessWidget {
             ),
             child: event.frontCover != null
                 ? Image.network(
+                    alignment: Alignment.centerLeft,
                     Constants.IMAGES_URL + event.frontCover!,
                   )
                 : Image.asset(

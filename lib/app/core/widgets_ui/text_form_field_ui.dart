@@ -4,10 +4,12 @@ class TextFormFieldUi extends StatefulWidget {
   final String title;
   final FocusNode? focusNode;
   final Function(String? value) onChanged;
+  final Function(String? value) onSubmited;
   const TextFormFieldUi(
       {super.key,
       required this.title,
       required this.onChanged,
+      required this.onSubmited,
       this.focusNode});
 
   @override
@@ -44,6 +46,9 @@ class _TextFormFieldUiState extends State<TextFormFieldUi> {
         contentPadding: const EdgeInsets.all(10),
       ),
       strutStyle: const StrutStyle(),
+      onFieldSubmitted: (value) {
+        widget.onSubmited(value);
+      },
       onChanged: widget.onChanged,
     );
   }

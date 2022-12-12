@@ -33,14 +33,15 @@ class CreateEventController extends GetxController with LoaderMixin {
     loading(true);
 
     try {
-      await _eventsRepositoty.store(data);
+      var result = await _eventsRepositoty.store(data);
 
       Timer(const Duration(seconds: 1), () {
         loading(false);
         modal(true);
         Timer(const Duration(seconds: 1), () {
           modal(false);
-          Get.offNamed('/home');
+
+          Get.offAllNamed('/home');
         });
       });
     } catch (e) {

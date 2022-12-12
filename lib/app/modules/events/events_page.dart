@@ -2,18 +2,38 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:untapped/app/core/widgets_ui/text_form_field_ui.dart';
 import 'package:untapped/app/modules/events/widgets/highlights_events.dart';
+import '../../core/services/app_state.dart';
 import './events_controller.dart';
 
-class EventsPage extends GetView<EventsController> {
-  EventsPage({super.key});
+class EventsPage extends StatefulWidget {
+  const EventsPage({super.key});
+
+  @override
+  State<EventsPage> createState() => _EventsPageState();
+}
+
+class _EventsPageState extends AppState<EventsPage, EventsController> {
   var hasLoaded = false;
 
   @override
+  void reassemble() {
+    super.reassemble();
+  }
+
+  @override
+  void activate() {
+    controller.loadEvents();
+    super.activate();
+  }
+
+  @override
+  void initState() {
+    controller.loadEvents();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (!hasLoaded) {
-      hasLoaded = true;
-      controller.loadEvents();
-    }
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -31,13 +51,14 @@ class EventsPage extends GetView<EventsController> {
                 child: TextFormFieldUi(
                   focusNode: controller.focusNode,
                   title: 'Pesquisar evento por nome',
-                  onChanged: (value) {
+                  onSubmited: (value) {
                     if (value != null && value.length > 3) {
                       controller.findEventsByName(value);
                     } else {
                       controller.loadEvents();
                     }
                   },
+                  onChanged: (value) {},
                 ),
               ),
               const SizedBox(

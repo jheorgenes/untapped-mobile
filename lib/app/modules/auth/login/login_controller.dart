@@ -9,16 +9,16 @@ import '../../../core/constants/constants.dart';
 class LoginController extends GetxController {
   final IAuthRepository _authRepository;
   final AuthService _authService = Get.find();
+  final RestClient restClient;
 
   final _getStorage = GetStorage();
 
-  LoginController(this._authRepository);
+  LoginController(this._authRepository, this.restClient);
   final String welcomeMessage =
       'Welcome back to the LuotisPay application, please login using the user you already have and having day';
   var loading = false.obs;
 
   authenticate(Map<String, dynamic> data) async {
-    RestClient restClient = Get.find();
     await _getStorage.write(Constants.USER_KEY, null);
     restClient.headersDefault['Authorization'] = '';
     var response = await _authRepository.login(data);

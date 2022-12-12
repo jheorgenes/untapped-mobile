@@ -6,6 +6,6 @@ class LoginBindings implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<IAuthRepository>(() => AuthRepository(Get.find()));
-    Get.put(LoginController(Get.find()));
+    Get.put(LoginController(Get.find(), Get.find()));
   }
 }

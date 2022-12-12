@@ -25,18 +25,10 @@ mixin LoaderMixin on GetxController {
   void modalConfirm(RxBool modal, String message) {
     ever(modal, (_) async {
       if (modal.isTrue) {
-        await Get.dialog(
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: Material(
-              child: WillPopScope(
-                onWillPop: () async => false,
-                child: Center(
-                  child: Text(message),
-                ),
-              ),
-            ),
+        await Get.defaultDialog(
+          title: 'Status',
+          content: Center(
+            child: Text(message),
           ),
           barrierDismissible: false,
         );
