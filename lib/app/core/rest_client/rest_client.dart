@@ -1,8 +1,8 @@
 import 'package:get/get_connect/connect.dart';
 
 class RestClient extends GetConnect {
-  // final _backendBaseUrl = 'http://192.168.0.225:8082';
-  final _backendBaseUrl = 'http://192.168.1.5:8080';
+  final _backendBaseUrl = 'http://192.168.0.225:8080';
+  // final _backendBaseUrl = 'http://localhost:8082';
   final Map<String, String> headersDefault = {};
 
   RestClient() {

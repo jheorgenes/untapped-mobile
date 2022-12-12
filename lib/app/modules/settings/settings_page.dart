@@ -100,7 +100,7 @@ class SettingsPage extends GetView<SettingsController> {
               height: 16,
             ),
             OptionItemWidget(
-              title: ' Endereço',
+              title: ' Meu Endereço',
               callback: () {
                 Get.toNamed('/user/address');
               },

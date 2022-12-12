@@ -45,8 +45,9 @@ class _TicketWidgetState extends State<TicketWidget> {
     _priceController.text = widget.ticket['valueTicket'] != null
         ? widget.ticket['valueTicket'].toString()
         : '';
-    _quantityController.text =
-        widget.ticket['numberOfTicketsPerRating'].toString();
+    _quantityController.text = widget.ticket['numberOfTicketsPerRating'] != null
+        ? widget.ticket['numberOfTicketsPerRating'].toString()
+        : '';
     ticketClassificationController.text =
         widget.ticket['ticketClassification'] ?? '';
     ticketExpirationDateController.text = widget.defaultExpirationDate;

@@ -187,7 +187,7 @@ class _ProfilePageState extends AppState<ProfilePage, ProfileController> {
                     height: 20,
                   ),
                   InputFormUi(
-                    type: 'texr',
+                    type: 'number',
                     enabled: controller.editMode.value,
                     label: 'CPF',
                     textColor: Colors.white,

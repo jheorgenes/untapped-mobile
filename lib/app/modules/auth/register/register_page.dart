@@ -161,7 +161,7 @@ class RegisterPage extends GetView<RegisterController> {
                     height: 20,
                   ),
                   InputFormUi(
-                    type: 'texr',
+                    type: 'number',
                     label: 'CPF',
                     textColor: Colors.black,
                     controller: _cpfController,

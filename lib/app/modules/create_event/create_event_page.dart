@@ -161,19 +161,8 @@ class _CreateEventPageState
         showIcon: false,
         color: Theme.of(context).backgroundColor,
       ),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButtonUi(
-        callback: _submitForm,
-        child: SizedBox(
-          height: 57,
-          width: context.widthTransformer(reducedBy: 30),
-          child: Center(
-            child: Text(
-                _mode == 'create' ? 'Cadastrar evento' : 'Atualizar evento'),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Container(
           width: context.width,
@@ -412,6 +401,23 @@ class _CreateEventPageState
                             controller.data['tickets'] = tickets;
                           },
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                          child: ElevatedButtonUi(
+                            callback: _submitForm,
+                            child: SizedBox(
+                              height: 57,
+                              width: context.widthTransformer(reducedBy: 30),
+                              child: Center(
+                                child: Text(_mode == 'create'
+                                    ? 'Cadastrar evento'
+                                    : 'Atualizar evento'),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     );
                   }),

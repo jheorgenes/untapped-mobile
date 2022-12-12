@@ -8,7 +8,10 @@ import '../constants/constants.dart';
 class EventItemWidget extends StatelessWidget {
   final EventModel event;
 
-  const EventItemWidget({super.key, required this.event});
+  const EventItemWidget({
+    super.key,
+    required this.event,
+  });
 
   @override
   Widget build(BuildContext context) {
