@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../core/models/event_model.dart';
 import '../../../core/widgets_ui/event_item_widget.dart';
@@ -33,21 +32,17 @@ class HighlightsEvents extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          SizedBox(
-            width: context.width,
-            height: context.height,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  ..._events.map((event) {
-                    final eventModel = event as EventModel;
-                    return EventItemWidget(
-                      event: eventModel,
-                    );
-                  }),
-                ],
-              ),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                ..._events.map((event) {
+                  final eventModel = event as EventModel;
+                  return EventItemWidget(
+                    event: eventModel,
+                  );
+                }),
+              ],
             ),
           )
         ],
