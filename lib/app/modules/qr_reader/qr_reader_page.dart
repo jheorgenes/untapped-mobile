@@ -35,10 +35,12 @@ class QrReaderPage extends GetView<QrReaderController> {
                 Get.back();
                 if (value) {
                   Get.defaultDialog(
+                    title: '',
                     content: const Text('Ticket validado com sucesso!'),
                   );
                 } else {
                   Get.defaultDialog(
+                    title: '',
                     content: const Text('Ticket inválido!'),
                   );
                 }

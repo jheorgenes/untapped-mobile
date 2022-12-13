@@ -36,7 +36,8 @@ class OrderRepository implements IOrderRepository {
 
   @override
   validateQrCode(String qrCode) async {
-    var response = await _restClient.post('/api/validate/$qrCode', {});
+    var response =
+        await _restClient.post('/api/ticketsOrder/validate/$qrCode', {});
     return response.body;
   }
 
