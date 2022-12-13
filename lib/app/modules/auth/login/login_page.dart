@@ -3,17 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:untapped/app/core/widgets_ui/app_bar_navigator.dart';
 import 'package:untapped/app/core/widgets_ui/elevated_button_ui.dart';
 import 'package:untapped/app/core/widgets_ui/input_form_ui.dart';
+import '../../../core/services/app_state.dart';
 import './login_controller.dart';
 
-class LoginPage extends GetView<LoginController> {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends AppState<LoginPage, LoginController> {
   final TextEditingController _userName = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     _userName.text = 'jheorgenes@gmail.com';
     _password.text = 'admin234';
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarNavigator(
         title: '',
