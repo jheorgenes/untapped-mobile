@@ -18,6 +18,7 @@ class TicketDetailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ticket = order['ticket'];
+    final eventName = ticket['event']?['title'] ?? '';
     final qrCode = order['qrCode'] ?? 0;
     DateTime tempDate =
         DateFormat("dd/MM/yyyy HH:mm").parse('${ticket['expirationDate']}');
@@ -133,6 +134,32 @@ class TicketDetailWidget extends StatelessWidget {
                     Row(
                       children: const [
                         Text(
+                          'Título do evento',
+                          style: TextStyle(
+                            color: Color(0XFF717171),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Text(
+                          eventName,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      children: const [
+                        Text(
                           'Pagamento',
                           style: TextStyle(
                             color: Color(0XFF717171),
@@ -178,7 +205,10 @@ class TicketDetailWidget extends StatelessWidget {
                   size: 150,
                   gapless: false,
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
